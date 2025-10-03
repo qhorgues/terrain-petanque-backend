@@ -1,0 +1,11 @@
+---
+spring:
+  application:
+    name: terrain_petanque
+  datasource:
+    url: jdbc:mariadb://localhost:3306/terrain_petanque
+    username: terrain_petanque
+    password: password-group1
+    driver-class-name: org.mariadb.jdbc.Driver
+server:
+  port: 8081
