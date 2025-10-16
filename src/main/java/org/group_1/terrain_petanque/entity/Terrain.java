@@ -34,7 +34,7 @@ public class Terrain {
     /**
      * This attribute represents the court's name.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String nom;
 
 
@@ -49,6 +49,7 @@ public class Terrain {
     /**
      * This attribute represents the court's description.
      */
+    @Column(length = 200)
     @Getter @Setter private String description;
 
 
@@ -57,13 +58,13 @@ public class Terrain {
      * This attribute represents the court's foreign key (link to 'coordonees' table).
      */
     @ManyToOne
-    @JoinColumn(name= "coordonees_id", nullable = false)
-    @Getter private Coordonnees coordonnees;
+    @JoinColumn(name= "coordonnees_id", nullable = false)
+    @Getter @Setter @NonNull private Coordonnees coordonnees;
 
 
 
     /**
-     * This attribute represents a link (One-To-Many) with the 'reservation' association table.
+     * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
     @OneToMany(mappedBy = "terrain")
     private Set<Reservation> reservations;

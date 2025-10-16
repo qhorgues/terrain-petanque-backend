@@ -49,4 +49,26 @@ public class Reservation {
      */
     @Getter @Setter private int reservation;
 
+
+
+    /**
+     * The default constructor for JPA.
+     */
+    public Reservation() {}
+
+
+
+    /**
+     * The constructor for developers.
+     * 
+     * @param utilisateur The user.
+     * @param terrain The court.
+     * @param reservation The reservation.
+     */
+    public Reservation(Utilisateur utilisateur, Terrain terrain, int reservation) {
+        this.utilisateur = utilisateur;
+        this.terrain = terrain;
+        this.reservation = reservation;
+    }
+
 }

@@ -32,7 +32,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's name.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String nom;
 
 
@@ -40,7 +40,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's surname.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String prenom;
 
 
@@ -48,7 +48,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's mail.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String mail;
 
 
@@ -56,7 +56,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's password.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String password;
 
 
@@ -64,13 +64,13 @@ public class Utilisateur {
     /**
      * This attribute represents the user's username.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String username;
 
 
 
     /**
-     * This attribute represents a link (One-To-Many) with the 'reservation' association table.
+     * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
     @OneToMany(mappedBy = "utilisateur")
     private Set<Reservation> reservations;

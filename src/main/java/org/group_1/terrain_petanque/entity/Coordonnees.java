@@ -32,14 +32,14 @@ public class Coordonnees {
     /**
      * This attribute represents the coordinates' latitude.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String latitude;
 
 
     /**
      * This attribute represents the coordinates' longitude.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     @Getter @Setter @NonNull private String longitude;
 
 
