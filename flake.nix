@@ -36,12 +36,16 @@
         #     chmod +x $out/bin/${name}-${version}
         #   '';
         # };
-        devShells.${system}.default = pkgs.mkShell {
-          nativeBuildInputs = with pkgs.buildPackages; [
-            jdk
-            maven
-            jdt-language-server
-          ];
+        devShells = {
+          default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              jdk
+              maven
+              jdt-language-server
+              nodejs
+              nodePackages.npm-check-updates
+            ];
+          };
         };
       });
 }
