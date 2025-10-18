@@ -20,36 +20,38 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "terrain")
-public class Terrain {
+public class Court {
 
     /**
      * This attribute represents the court's id.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter private Long id;
+    @Column(name = "id")
+    @Getter private Integer id;
 
 
 
     /**
      * This attribute represents the court's name.
      */
-    @Column(nullable = false, length = 100)
-    @Getter @Setter @NonNull private String nom;
+    @Column(name = "nom", nullable = false, length = 100)
+    @Getter @Setter @NonNull private String name;
 
 
 
     /**
      * This attribute represents the court's quantity.
      */
-    @Getter @Setter private int quantite;
+    @Column(name = "quantite")
+    @Getter @Setter private int quantity;
 
 
 
     /**
      * This attribute represents the court's description.
      */
-    @Column(length = 200)
+    @Column(name = "description", length = 200)
     @Getter @Setter private String description;
 
 
@@ -59,14 +61,36 @@ public class Terrain {
      */
     @ManyToOne
     @JoinColumn(name= "coordonnees_id", nullable = false)
-    @Getter @Setter @NonNull private Coordonnees coordonnees;
+    @Getter @Setter @NonNull private Coordinates coordinates;
 
 
 
     /**
      * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
-    @OneToMany(mappedBy = "terrain")
+    @OneToMany(mappedBy = "court")
     private Set<Reservation> reservations;
+
+
+
+    /**
+     * The default constructor for JPA.
+     */
+    protected Court() {}
+
+
+
+    /**
+     * The constructor for developers.
+     * 
+     * @param name The court's name.
+     * @param quantity The court's quantity.
+     * @param coordinates The court's coordinates.
+     */
+    public Court(@NonNull String name, int quantity, @NonNull Coordinates coordinates) {
+        this.name = name;
+        this.quantity = quantity;
+        this.coordinates = coordinates;
+    }
 
 }
