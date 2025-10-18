@@ -18,37 +18,38 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "utilisateur")
-public class Utilisateur {
+public class User {
 
     /**
      * This attribute represents the user's id.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter private Long id;
+    @Column(name = "id")
+    @Getter private Integer id;
 
 
 
     /**
      * This attribute represents the user's name.
      */
-    @Column(nullable = false, length = 100)
-    @Getter @Setter @NonNull private String nom;
+    @Column(name = "nom", nullable = false, length = 100)
+    @Getter @Setter @NonNull private String name;
 
 
 
     /**
      * This attribute represents the user's surname.
      */
-    @Column(nullable = false, length = 100)
-    @Getter @Setter @NonNull private String prenom;
+    @Column(name = "prenom", nullable = false, length = 100)
+    @Getter @Setter @NonNull private String surname;
 
 
 
     /**
      * This attribute represents the user's mail.
      */
-    @Column(nullable = false, length = 100)
+    @Column(name = "mail", nullable = false, length = 100)
     @Getter @Setter @NonNull private String mail;
 
 
@@ -56,7 +57,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's password.
      */
-    @Column(nullable = false, length = 100)
+    @Column(name = "password", nullable = false, length = 100)
     @Getter @Setter @NonNull private String password;
 
 
@@ -64,7 +65,7 @@ public class Utilisateur {
     /**
      * This attribute represents the user's username.
      */
-    @Column(nullable = false, length = 100)
+    @Column(name = "username", nullable = false, length = 100)
     @Getter @Setter @NonNull private String username;
 
 
@@ -72,7 +73,7 @@ public class Utilisateur {
     /**
      * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(mappedBy = "user")
     private Set<Reservation> reservations;
     
 }

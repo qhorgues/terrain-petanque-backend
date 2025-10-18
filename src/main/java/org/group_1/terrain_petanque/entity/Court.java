@@ -20,29 +20,31 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "terrain")
-public class Terrain {
+public class Court {
 
     /**
      * This attribute represents the court's id.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter private Long id;
+    @Column(name = "id")
+    @Getter private Integer id;
 
 
 
     /**
      * This attribute represents the court's name.
      */
-    @Column(nullable = false, length = 100)
-    @Getter @Setter @NonNull private String nom;
+    @Column(name = "nom", nullable = false, length = 100)
+    @Getter @Setter @NonNull private String name;
 
 
 
     /**
      * This attribute represents the court's quantity.
      */
-    @Getter @Setter private int quantite;
+    @Column(name = "quantite")
+    @Getter @Setter private int quantity;
 
 
 
@@ -59,14 +61,14 @@ public class Terrain {
      */
     @ManyToOne
     @JoinColumn(name= "coordonnees_id", nullable = false)
-    @Getter @Setter @NonNull private Coordonnees coordonnees;
+    @Getter @Setter @NonNull private Coordinates coordinates;
 
 
 
     /**
      * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
-    @OneToMany(mappedBy = "terrain")
+    @OneToMany(mappedBy = "court")
     private Set<Reservation> reservations;
 
 }
