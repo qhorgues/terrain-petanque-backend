@@ -37,6 +37,7 @@ public class Coordinates {
     @Getter @Setter @NonNull private String latitude;
 
 
+
     /**
      * This attribute represents the coordinates' longitude.
      */
@@ -51,5 +52,25 @@ public class Coordinates {
      */
     @OneToMany(mappedBy = "coordinates")
     private Set<Court> courts;
+
+
+
+    /**
+     * The default constructor for JPA.
+     */
+    protected Coordinates() {}
+
+
+
+    /**
+     * The constructor for developers.
+     * 
+     * @param latitude The coordinates' latitude.
+     * @param longitude The coordinates' longitude.
+     */
+    public Coordinates(@NonNull String latitude, @NonNull String longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
 }

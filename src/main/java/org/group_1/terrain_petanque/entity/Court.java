@@ -51,7 +51,7 @@ public class Court {
     /**
      * This attribute represents the court's description.
      */
-    @Column(length = 200)
+    @Column(name = "description", length = 200)
     @Getter @Setter private String description;
 
 
@@ -70,5 +70,27 @@ public class Court {
      */
     @OneToMany(mappedBy = "court")
     private Set<Reservation> reservations;
+
+
+
+    /**
+     * The default constructor for JPA.
+     */
+    protected Court() {}
+
+
+
+    /**
+     * The constructor for developers.
+     * 
+     * @param name The court's name.
+     * @param quantity The court's quantity.
+     * @param coordinates The court's coordinates.
+     */
+    public Court(@NonNull String name, int quantity, @NonNull Coordinates coordinates) {
+        this.name = name;
+        this.quantity = quantity;
+        this.coordinates = coordinates;
+    }
 
 }

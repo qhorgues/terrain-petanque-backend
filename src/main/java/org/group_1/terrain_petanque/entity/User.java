@@ -76,4 +76,30 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Reservation> reservations;
     
+
+
+    /**
+     * The default constructor for JPA.
+     */
+    protected User() {}
+
+
+
+    /**
+     * The constructor for developers.
+     * 
+     * @param name The user's name.
+     * @param surname The user's surname.
+     * @param mail The user's mail.
+     * @param password The user's password.
+     * @param username The user's username.
+     */
+    public User(@NonNull String name, @NonNull String surname, @NonNull String mail, @NonNull String password, @NonNull String username) {
+        this.name = name;
+        this.surname = surname;
+        this.mail = mail;
+        this.password = password;
+        this.username = username;
+    }
+    
 }

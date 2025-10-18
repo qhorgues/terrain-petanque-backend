@@ -1,5 +1,6 @@
 package org.group_1.terrain_petanque.entity;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -54,7 +55,7 @@ public class Reservation {
     /**
      * The default constructor for JPA.
      */
-    public Reservation() {}
+    protected Reservation() {}
 
 
 
@@ -65,7 +66,7 @@ public class Reservation {
      * @param court The court.
      * @param reservation The reservation.
      */
-    public Reservation(User user, Court court, int reservation) {
+    public Reservation(@NonNull User user,@NonNull Court court, int reservation) {
         this.user = user;
         this.court = court;
         this.reservation = reservation;
