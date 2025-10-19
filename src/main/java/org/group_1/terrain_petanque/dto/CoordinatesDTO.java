@@ -2,12 +2,14 @@ package org.group_1.terrain_petanque.dto;
 
 import java.util.Set;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * This class represents a Data Transfer Object (DTO) for coordinates.
  */
+@Builder
 public class CoordinatesDTO {
 
     /**
