@@ -2,25 +2,29 @@ package org.group_1.terrain_petanque.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.group_1.terrain_petanque.entity.ReservationKey;
-import org.group_1.terrain_petanque.entity.Terrain;
-import org.group_1.terrain_petanque.entity.Utilisateur;
 
+/**
+ * This class represents a Data Transfer Object (DTO) for a reservation.
+ */
 public class ReservationDTO {
-    @Getter
-    @Setter
-    private ReservationKey id;
 
-    @Getter
-    @Setter
-    private Utilisateur utilisateur;
+    /**
+     * This attribute represents the user's id.
+     */
+    @Getter @Setter private Integer userId;
 
-    @Getter
-    @Setter
-    private Terrain terrain;
 
-    @Getter
-    @Setter
-    private int reservation;
+
+    /**
+     * This attribute represents the court's id.
+     */
+    @Getter @Setter private Integer courtId;
+
+
+
+    /**
+     * This attribute represents the 'reservation'.
+     */
+    @Getter @Setter private int reservation;
 
 }
