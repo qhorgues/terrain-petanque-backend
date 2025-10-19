@@ -27,7 +27,7 @@ public interface CoordinatesMapper {
      * @return Return the coordinates Entity.
      */
     @Mapping(target = "courts", ignore = true)
-    Coordinates toToEntity(CoordinatesDTO coordinatesDTO);
+    Coordinates toEntity(CoordinatesDTO coordinatesDTO);
 
 
 

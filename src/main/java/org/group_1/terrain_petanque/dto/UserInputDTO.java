@@ -1,12 +1,16 @@
 package org.group_1.terrain_petanque.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * This class represents a Data Transfer Object (DTO) for a user.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserInputDTO {
    
