@@ -1,5 +1,6 @@
 package org.group_1.terrain_petanque.entity;
 
+import java.util.Collections;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -52,6 +53,18 @@ public class Coordinates {
      */
     @OneToMany(mappedBy = "coordinates")
     private Set<Court> courts;
+
+
+
+    /**
+     * This method returns the courts.
+     * The courts cannot be modified.
+     * 
+     * @return Return the courts.
+     */
+    public Set<Court> getCourts() {
+        return Collections.unmodifiableSet(courts);
+    }
 
 
 
