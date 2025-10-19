@@ -16,7 +16,7 @@ public class ReservationKey implements Serializable {
      * This attribute represents the reservation's foreign key (link to 'utilisateur' table).
      */
     @Column(name = "utilisateur_id")
-    @Getter private Long utilisateurId;
+    @Getter private Integer userId;
 
 
 
@@ -24,6 +24,6 @@ public class ReservationKey implements Serializable {
      * This attribute represents the reservation's foreign key (link to 'terrain' table).
      */
     @Column(name = "terrain_id")
-    @Getter private Long terrainId;
+    @Getter private Integer courtId;
     
 }

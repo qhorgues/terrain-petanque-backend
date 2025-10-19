@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -28,9 +29,9 @@ public class Reservation {
      * This attribute represents the user's id.
      */
     @ManyToOne
-    @MapsId("utilisateurId")
+    @MapsId("userId")
     @JoinColumn(name = "utilisateur_id")
-    @Getter private Utilisateur utilisateur;
+    @Getter private User user;
 
 
 
@@ -38,9 +39,9 @@ public class Reservation {
      * This attribute represents the court's id.
      */
     @ManyToOne
-    @MapsId("terrainId")
+    @MapsId("courtId")
     @JoinColumn(name = "terrain_id")
-    @Getter private Terrain terrain;
+    @Getter private Court court;
 
 
 
@@ -54,20 +55,20 @@ public class Reservation {
     /**
      * The default constructor for JPA.
      */
-    public Reservation() {}
+    protected Reservation() {}
 
 
 
     /**
      * The constructor for developers.
      * 
-     * @param utilisateur The user.
-     * @param terrain The court.
+     * @param user The user.
+     * @param court The court.
      * @param reservation The reservation.
      */
-    public Reservation(Utilisateur utilisateur, Terrain terrain, int reservation) {
-        this.utilisateur = utilisateur;
-        this.terrain = terrain;
+    public Reservation(@NonNull User user,@NonNull Court court, int reservation) {
+        this.user = user;
+        this.court = court;
         this.reservation = reservation;
     }
 
