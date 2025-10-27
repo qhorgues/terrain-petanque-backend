@@ -1,6 +1,7 @@
 package org.group_1.terrain_petanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,22 +15,14 @@ public class CourtTest {
      */
     @Test
     public void constructorTest() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new Court("name", 0, null);
-            throw new RuntimeException("It cannot be possible to have a coordinate with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             Coordinates coordinates = new Coordinates("100", "100");
             new Court(null, 0, coordinates);
-            throw new RuntimeException("It cannot be possible to have a name with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
     }
 
 
@@ -53,7 +46,7 @@ public class CourtTest {
      * This method tests the getter of the name.
      */
     @Test
-    public void getLatitudeTest() {
+    public void getNameTest() {
         // Init & test
         Coordinates coordinates = new Coordinates("100", "120");
         Court court = new Court("Court 1", 1, coordinates);
@@ -68,19 +61,15 @@ public class CourtTest {
      * This method tests the setter of the name.
      */
     @Test
-    public void setLatitudeTest() {
+    public void setNameTest() {
         // Init
         Coordinates coordinates = new Coordinates("100", "120");
         Court court = new Court("Court 1", 1, coordinates);
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             court.setName(null);
-            throw new RuntimeException("It cannot be possible to have a name with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
         court.setName("Hello");
 
@@ -115,13 +104,9 @@ public class CourtTest {
         Court court = new Court("Court 1", 1, coordinates);
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             court.setCoordinates(null);
-            throw new RuntimeException("It cannot be possible to have a coordinates with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
         Coordinates coordinates2 = new Coordinates("0", "0");
         court.setCoordinates(coordinates2);

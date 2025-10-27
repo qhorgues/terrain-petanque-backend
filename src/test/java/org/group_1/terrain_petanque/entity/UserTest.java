@@ -1,6 +1,7 @@
 package org.group_1.terrain_petanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,40 +15,25 @@ public class UserTest {
      */
     @Test
     public void constructorTest() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new User(null, "Surname", "mail@mail.com", "password", "username");
-            throw new RuntimeException("It cannot be possible to have a name with null");
-        } catch (NullPointerException exception) {
-            // The constrain is a success
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new User("Name", null, "mail@mail.com", "password", "username");
-            throw new RuntimeException("It cannot be possible to have a surname with null");
-        } catch (NullPointerException exception) {
-            // The constrain is a success
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new User("Name", "Surname", null, "password", "username");
-            throw new RuntimeException("It cannot be possible to have a mail with null");
-        } catch (NullPointerException exception) {
-            // The constrain is a success
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new User("Name", "Surname", "mail@mail.com", null, "username");
-            throw new RuntimeException("It cannot be possible to have a password with null");
-        } catch (NullPointerException exception) {
-            // The constrain is a success
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new User("Name", "Surname", "mail@mail.com", "password", null);
-            throw new RuntimeException("It cannot be possible to have a username with null");
-        } catch (NullPointerException exception) {
-            // The constrain is a success
-        }
+        });
     }
 
 
@@ -89,10 +75,9 @@ public class UserTest {
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             user.setName(null);
-            throw new RuntimeException("It cannot be possible to have a name with null");
-        } catch (NullPointerException exception) {}
+        });
 
         user.setName("NewName");
 
@@ -125,10 +110,9 @@ public class UserTest {
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             user.setSurname(null);
-            throw new RuntimeException("It cannot be possible to have a surname with null");
-        } catch (NullPointerException exception) {}
+        });
 
         user.setSurname("NewSurname");
 
@@ -161,10 +145,9 @@ public class UserTest {
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             user.setMail(null);
-            throw new RuntimeException("It cannot be possible to have a mail with null");
-        } catch (NullPointerException exception) {}
+        });
 
         user.setMail("new@mail.com");
 
@@ -197,10 +180,9 @@ public class UserTest {
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             user.setPassword(null);
-            throw new RuntimeException("It cannot be possible to have a password with null");
-        } catch (NullPointerException exception) {}
+        });
 
         user.setPassword("newpassword");
 
@@ -233,10 +215,9 @@ public class UserTest {
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             user.setUsername(null);
-            throw new RuntimeException("It cannot be possible to have a username with null");
-        } catch (NullPointerException exception) {}
+        });
 
         user.setUsername("newusername");
 

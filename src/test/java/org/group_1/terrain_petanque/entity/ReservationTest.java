@@ -1,6 +1,7 @@
 package org.group_1.terrain_petanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,23 +15,16 @@ public class ReservationTest {
      */
     @Test
     public void constructorTest() {
-        try {
-            User user = new User("a", "b", "c", "d", "e");
-            new Reservation(user, null, 0);
-            throw new RuntimeException("It cannot be possible to have an user with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        User user = new User("a", "b", "c", "d", "e");
+        Court court = new Court("court 1", 1, new Coordinates("100", "120"));
 
-        try {
-            Court court = new Court("court 1", 1, new Coordinates("100", "120"));
+        assertThrows(NullPointerException.class, () -> {
+            new Reservation(user, null, 0);
+        });
+
+        assertThrows(NullPointerException.class, () -> {
             new Reservation(null, court, 0);
-            throw new RuntimeException("It cannot be possible to have a court with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
     }
 
 

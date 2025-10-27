@@ -1,6 +1,7 @@
 package org.group_1.terrain_petanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Set;
 
@@ -16,21 +17,13 @@ public class CoordinatesTest {
      */
     @Test
     public void constructorTest() {
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new Coordinates("100", null);
-            throw new RuntimeException("It cannot be possible to have a longitude with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
-        try {
+        assertThrows(NullPointerException.class, () -> {
             new Coordinates(null, "120");
-            throw new RuntimeException("It cannot be possible to have a latitude with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
     }
 
 
@@ -72,13 +65,9 @@ public class CoordinatesTest {
         Coordinates coordinates = new Coordinates("100", "120");
 
         // Test
-        try {
+        assertThrows(NullPointerException.class, () -> {
             coordinates.setLatitude(null);
-            throw new RuntimeException("It cannot be possible to have a latitude with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
         coordinates.setLatitude("0");
 
@@ -111,13 +100,9 @@ public class CoordinatesTest {
         Coordinates coordinates = new Coordinates("100", "120");
 
         // Test
-         try {
+        assertThrows(NullPointerException.class, () -> {
             coordinates.setLongitude(null);
-            throw new RuntimeException("It cannot be possible to have a longitude with null");
-        }
-        catch (NullPointerException exception) {
-            // The constrain is a success.
-        }
+        });
 
         coordinates.setLongitude("0");
 
@@ -138,11 +123,9 @@ public class CoordinatesTest {
 
         // Test
         Set<Court> courts = coordinates.getCourts();
-        try {
+        assertThrows(UnsupportedOperationException.class, () -> {
             courts.clear();
-            throw new RuntimeException("Modification of an umutable object.");
-        }
-        catch (UnsupportedOperationException exception) {}
+        });
 
         // Assertion
         assertEquals(coordinates.getCourts(), courts);
