@@ -6,13 +6,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 /**
  * This class represents the 'reservation' table in the database.
  */
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 @Entity
 @Table(name = "reservation")
 public class Reservation {
@@ -21,7 +26,7 @@ public class Reservation {
      * This attribute represents the reservation's keys.
      */
     @EmbeddedId
-    private ReservationKey id;
+    @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) private ReservationKey id;
 
 
 
@@ -30,8 +35,8 @@ public class Reservation {
      */
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "utilisateur_id")
-    @Getter private User user;
+    @JoinColumn(nullable = false, name = "utilisateur_id")
+    @Setter(AccessLevel.NONE) @NonNull private User user;
 
 
 
@@ -40,22 +45,15 @@ public class Reservation {
      */
     @ManyToOne
     @MapsId("courtId")
-    @JoinColumn(name = "terrain_id")
-    @Getter private Court court;
+    @JoinColumn(nullable = false, name = "terrain_id")
+    @Setter(AccessLevel.NONE) @NonNull private Court court;
 
 
 
     /**
      * This attribute represents the reservation.
      */
-    @Getter @Setter private int reservation;
-
-
-
-    /**
-     * The default constructor for JPA.
-     */
-    protected Reservation() {}
+    private int reservation;
 
 
 
@@ -66,7 +64,7 @@ public class Reservation {
      * @param court The court.
      * @param reservation The reservation.
      */
-    public Reservation(@NonNull User user,@NonNull Court court, int reservation) {
+    public Reservation(@NonNull User user, @NonNull Court court, int reservation) {
         this.user = user;
         this.court = court;
         this.reservation = reservation;
