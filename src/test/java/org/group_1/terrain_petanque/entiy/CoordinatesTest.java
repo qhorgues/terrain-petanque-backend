@@ -1,6 +1,11 @@
 package org.group_1.terrain_petanque.entiy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Set;
+
 import org.group_1.terrain_petanque.entity.Coordinates;
+import org.group_1.terrain_petanque.entity.Court;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,6 +34,21 @@ public class CoordinatesTest {
             // The constrain is a success.
         }
     }
+
+
+    
+    /**
+     * This method tests the getter of the id.
+     */
+    @Test
+    public void getIdTest() {
+        // Init & test
+        Coordinates coordinates = new Coordinates("100", "120");
+
+        // Assertion
+        assertEquals(coordinates.getId(), null);
+    }
+
 
 
 }
