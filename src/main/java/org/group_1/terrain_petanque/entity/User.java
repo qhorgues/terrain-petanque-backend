@@ -1,5 +1,6 @@
 package org.group_1.terrain_petanque.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -74,7 +75,7 @@ public class User {
      * This attribute represents a link (Many-To-Many) with the 'reservation' association table.
      */
     @OneToMany(mappedBy = "user")
-    private Set<Reservation> reservations;
+    private Set<Reservation> reservations = new HashSet<>();
     
 
 
