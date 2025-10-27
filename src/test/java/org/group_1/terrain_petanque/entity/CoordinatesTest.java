@@ -1,11 +1,9 @@
-package org.group_1.terrain_petanque.entiy;
+package org.group_1.terrain_petanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
 
-import org.group_1.terrain_petanque.entity.Coordinates;
-import org.group_1.terrain_petanque.entity.Court;
 import org.junit.jupiter.api.Test;
 
 /**
