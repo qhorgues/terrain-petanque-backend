@@ -2,7 +2,10 @@ package org.group_1.terrain_petanque.entiy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Set;
+
 import org.group_1.terrain_petanque.entity.Coordinates;
+import org.group_1.terrain_petanque.entity.Court;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -87,5 +90,63 @@ public class CoordinatesTest {
 
 
 
-    
+    /**
+     * This method tests the getter of the longitude.
+     */
+    @Test
+    public void getLongitudeTest() {
+        // Init & test
+        Coordinates coordinates = new Coordinates("100", "120");
+
+        // Assertion 
+        assertEquals(coordinates.getLongitude(), "120");
+    }
+
+
+
+    /**
+     * This method tests the setter of the longitude.
+     */
+    @Test
+    public void setLongitudeTest() {
+        // Init
+        Coordinates coordinates = new Coordinates("100", "120");
+
+        // Test
+         try {
+            coordinates.setLongitude(null);
+            throw new RuntimeException("It cannot be possible to have a longitude with null");
+        }
+        catch (NullPointerException exception) {
+            // The constrain is a success.
+        }
+
+        coordinates.setLongitude("0");
+
+        // Assertion
+        assertEquals(coordinates.getLongitude(), "0");
+    }
+
+
+
+
+    /**
+     * This method tests the getter of the courts.
+     */
+    @Test
+    public void getCourtsTest() {
+        // Init
+        Coordinates coordinates = new Coordinates("100", "120");
+
+        // Test
+        Set<Court> courts = coordinates.getCourts();
+        try {
+            courts.clear();
+            throw new RuntimeException("Modification of an umutable object.");
+        }
+        catch (UnsupportedOperationException exception) {}
+
+        // Assertion
+        assertEquals(coordinates.getCourts(), courts);
+    }
 }
