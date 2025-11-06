@@ -26,7 +26,7 @@ public interface CourtMapper {
      * @param courtDTO The court DTO.
      * @return Return the court Entity.
      */
-    @Mapping(target = "coordinates", ignore = true)
+    @Mapping(source = "coordinatesId", target = "coordinates")
     Court toEntity(CourtDTO courtDTO);
 
 
@@ -50,6 +50,18 @@ public interface CourtMapper {
      */
     default Integer map(Coordinates coordinatesEntity) {
         return coordinatesEntity == null ? null : coordinatesEntity.getId();
+    }
+
+
+
+    /**
+     * This method converts an id into coordinates.
+     * 
+     * @param coordinatesId The id.
+     * @return Return the coordinates.
+     */
+    default Coordinates map(Integer coordinatesId) {
+        return Coordinates.obtainCoordinates(coordinatesId);
     }
 
 }

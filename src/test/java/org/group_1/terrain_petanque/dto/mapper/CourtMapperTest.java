@@ -52,7 +52,7 @@ public class CourtMapperTest {
         assertEquals(court.getName(), courtDTO.getName());
         assertEquals(court.getQuantity(), courtDTO.getQuantity());
         assertEquals(court.getDescription(), courtDTO.getDescription());
-        assertEquals(court.getCoordinates(), null); // Technically the service need to do the job, but there are not service in this test, so the answer is always null.
+        assertEquals(court.getCoordinates().getId(), 15);
     }
 
 

@@ -3,6 +3,7 @@ package org.group_1.terrain_petanque.dto.mapper;
 import org.group_1.terrain_petanque.dto.CoordinatesDTO;
 import org.group_1.terrain_petanque.entity.Coordinates;
 import org.group_1.terrain_petanque.entity.Court;
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -10,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * This interface representer a mapper (CoordinatesDTO <=> Coordinates).
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface CoordinatesMapper {
 
     /**
@@ -26,7 +27,7 @@ public interface CoordinatesMapper {
      * @param coordinatesDTO The coordinates DTO.
      * @return Return the coordinates Entity.
      */
-    @Mapping(target = "courts", ignore = true)
+    @Mapping(source = "courtsId", target = "courts")
     Coordinates toEntity(CoordinatesDTO coordinatesDTO);
 
 
@@ -50,6 +51,18 @@ public interface CoordinatesMapper {
      */
     default Integer map(Court courtEntity) {
         return courtEntity == null ? null : courtEntity.getId();
+    }
+
+
+
+    /**
+     * This method converts an id into a court.
+     * 
+     * @param courtId The od.
+     * @return Return the court.
+     */
+    default Court map(Integer courtId) {
+        return Court.obtainCourt(courtId);
     }
 
 }

@@ -71,5 +71,29 @@ public interface ReservationMapper {
     default Integer map(Court courtEntity) {
         return courtEntity == null ? null : courtEntity.getId();
     }
+
+
+
+    /**
+     * This method converts an id into an user.
+     * 
+     * @param userId The id.
+     * @return Return the user.
+     */
+    default User idToUser(Integer userId) {
+        return User.obtainUser(userId);
+    }
+
+
+
+    /**
+     * This method converts an id into a court.
+     * 
+     * @param courtId The id.
+     * @return Return the court.
+     */
+    default Court idToCourt(Integer courtId) {
+        return Court.obtainCourt(courtId);
+    }
     
 }

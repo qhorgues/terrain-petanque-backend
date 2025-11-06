@@ -54,7 +54,7 @@ public class CoordinatesMapperTest {
         assertEquals(coordinates.getId(), null); // The mapper cannot access to the id for security reason (no setter). You need to past the id with the service.
         assertEquals(coordinates.getLatitude(), coordinatesDTO.getLatitude());
         assertEquals(coordinates.getLongitude(), coordinatesDTO.getLongitude());
-        assertEquals(coordinates.getCourts().size(), 0); // Technically the service need to do the job, but there are not service in this test, so the answer is always 0.
+        assertEquals(coordinates.getCourts().size(), 2);
     }
 
 
