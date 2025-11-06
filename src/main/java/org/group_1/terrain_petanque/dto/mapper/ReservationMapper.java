@@ -4,11 +4,13 @@ import org.group_1.terrain_petanque.dto.ReservationDTO;
 import org.group_1.terrain_petanque.entity.Court;
 import org.group_1.terrain_petanque.entity.Reservation;
 import org.group_1.terrain_petanque.entity.User;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -62,6 +64,7 @@ public interface ReservationMapper {
         @Mapping(target = "user", ignore = true),
         @Mapping(target = "court", ignore = true)
     })
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void update(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
 
 
