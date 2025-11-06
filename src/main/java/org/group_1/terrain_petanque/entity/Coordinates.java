@@ -88,11 +88,6 @@ public class Coordinates {
     }
 
 
-    public void addCourt(Court court) {
-        courts.add(court);
-    }
-
-
 
     /**
      * This method add a court.
