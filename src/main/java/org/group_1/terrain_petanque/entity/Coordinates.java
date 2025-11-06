@@ -90,6 +90,28 @@ public class Coordinates {
 
 
     /**
+     * This method add a court.
+     * 
+     * @param court The court to add.
+     */
+    public void addCourt(Court court) {
+        courts.add(court);
+    }
+
+
+
+    /**
+     * This method remove a court.
+     * 
+     * @param court The court to remove.
+     */
+    public void removeCourt(Court court) {
+        courts.remove(court);
+    }
+
+
+
+    /**
      * The constructor for developers.
      * 
      * @param latitude The coordinates' latitude.
