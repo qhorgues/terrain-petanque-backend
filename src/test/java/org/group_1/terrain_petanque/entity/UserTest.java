@@ -11,6 +11,20 @@ import org.junit.jupiter.api.Test;
 public class UserTest {
 
     /**
+     * This method tests the obtainUser method.
+     */
+    @Test
+    public void obtainUserTest() {
+        // Init & test
+        User test = User.obtainUser(100);
+
+        // Assertion
+        assertEquals(test.getId(), 100);
+    }
+
+
+    
+    /**
      * This method tests the constructor.
      */
     @Test

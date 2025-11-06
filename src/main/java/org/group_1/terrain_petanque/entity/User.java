@@ -27,6 +27,21 @@ import lombok.Setter;
 public class User {
 
     /**
+     * This method generate an entity with a specifi ID.
+     * But the object is not in a logical state, so don't use it to handle a database.
+     * 
+     * @param id The entity's id.
+     * @return Return the entity.
+     */
+    public static User obtainUser(int id) {
+        User result = new User();
+        result.id = id;
+        return result;
+    }
+
+
+    
+    /**
      * This attribute represents the user's id.
      */
     @Id

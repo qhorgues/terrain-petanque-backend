@@ -13,6 +13,20 @@ import org.junit.jupiter.api.Test;
 public class CoordinatesTest {
 
     /**
+     * This method tests the obtainCoordinates method.
+     */
+    @Test
+    public void obtainCoordinatesTest() {
+        // Init & test
+        Coordinates test = Coordinates.obtainCoordinates(100);
+
+        // Assertion
+        assertEquals(test.getId(), 100);
+    }
+
+    
+
+    /**
      * This method tests the constructor.
      */
     @Test
