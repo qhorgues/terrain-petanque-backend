@@ -3,10 +3,12 @@ package org.group_1.terrain_petanque.dto.mapper;
 import org.group_1.terrain_petanque.dto.CourtDTO;
 import org.group_1.terrain_petanque.entity.Coordinates;
 import org.group_1.terrain_petanque.entity.Court;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -51,6 +53,7 @@ public interface CourtMapper {
      * @param courtDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void update(@MappingTarget Court courtEntity, CourtDTO courtDTO);
 
 

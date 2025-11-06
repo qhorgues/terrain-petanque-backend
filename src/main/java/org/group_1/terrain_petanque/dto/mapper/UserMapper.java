@@ -3,10 +3,12 @@ package org.group_1.terrain_petanque.dto.mapper;
 import org.group_1.terrain_petanque.dto.UserDTO;
 import org.group_1.terrain_petanque.dto.UserInputDTO;
 import org.group_1.terrain_petanque.entity.User;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -59,6 +61,7 @@ public interface UserMapper {
      * @param userEntity The entity to updated.
      * @param userInputDTO The DTO.
      */
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void update(@MappingTarget User userEntity, UserInputDTO userInputDTO);
 
 }
