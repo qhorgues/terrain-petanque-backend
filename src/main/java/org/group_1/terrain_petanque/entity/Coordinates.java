@@ -88,6 +88,11 @@ public class Coordinates {
     }
 
 
+    public void addCourt(Court court) {
+        courts.add(court);
+    }
+
+
 
     /**
      * The constructor for developers.

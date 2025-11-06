@@ -4,15 +4,17 @@ import org.group_1.terrain_petanque.dto.ReservationDTO;
 import org.group_1.terrain_petanque.entity.Court;
 import org.group_1.terrain_petanque.entity.Reservation;
 import org.group_1.terrain_petanque.entity.User;
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 /**
  * This interface representer a mapper (ReservationDTO <=> Reservation).
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface ReservationMapper {
 
     /**
@@ -47,6 +49,20 @@ public interface ReservationMapper {
         @Mapping(source = "court", target = "courtId")
     })
     ReservationDTO toDTO(Reservation reservationEntity);
+
+
+
+    /**
+     * This method update an entity with the DTO.
+     * 
+     * @param reservationEntity The entity to updated.
+     * @param reservationDTO The DTO.
+     */
+    @Mappings({
+        @Mapping(target = "user", ignore = true),
+        @Mapping(target = "court", ignore = true)
+    })
+    void update(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
 
 
 

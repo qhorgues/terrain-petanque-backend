@@ -6,6 +6,7 @@ import org.group_1.terrain_petanque.entity.Court;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -40,6 +41,17 @@ public interface CoordinatesMapper {
      */
     @Mapping(source = "courts", target = "courtsId")
     CoordinatesDTO toDTO(Coordinates coordinatesEntity);
+
+
+
+    /**
+     * This method update an entity with the DTO.
+     * 
+     * @param coordinatesEntity The entity to updated.
+     * @param coordinatesDTO The DTO.
+     */
+    @Mapping(source = "courtsId", target = "courts")
+    void update(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
 
 
 

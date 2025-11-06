@@ -3,14 +3,16 @@ package org.group_1.terrain_petanque.dto.mapper;
 import org.group_1.terrain_petanque.dto.UserDTO;
 import org.group_1.terrain_petanque.dto.UserInputDTO;
 import org.group_1.terrain_petanque.entity.User;
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 /**
  * This interface representer a mapper (UserDTO <=> User) and (UserInputDTO => User).
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface UserMapper {
     
     /**
@@ -48,5 +50,15 @@ public interface UserMapper {
      * @return Return the user DTO.
      */
     UserDTO toDTO(User userEntity);
+
+
+
+    /**
+     * This method update an entity with the DTO.
+     * 
+     * @param userEntity The entity to updated.
+     * @param userInputDTO The DTO.
+     */
+    void update(@MappingTarget User userEntity, UserInputDTO userInputDTO);
 
 }
