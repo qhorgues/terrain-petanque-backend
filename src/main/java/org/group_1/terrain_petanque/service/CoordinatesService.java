@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * This class represent the service to handle coordinates.
+ */
 @Service
 @Transactional
 public class CoordinatesService {
