@@ -20,7 +20,7 @@ public interface UserMapper {
     /**
      * This field represents an instance of the mapper.
      */
-    final ReservationMapper INSTANCE = Mappers.getMapper(ReservationMapper.class);
+    final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
 
 
