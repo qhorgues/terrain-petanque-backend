@@ -63,7 +63,7 @@ public class UserService {
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
-    public void updateUser(int id, UserDTO userDTO) throws NotFoundException {
+    public void updateUser(int id, UserInputDTO userInputDTO) throws NotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isEmpty()) {
@@ -72,7 +72,7 @@ public class UserService {
 
         User user = userOptional.get();
 
-        UserMapper.INSTANCE.update(user, userDTO);
+        UserMapper.INSTANCE.update(user, userInputDTO);
 
         userRepository.save(user);
     }
