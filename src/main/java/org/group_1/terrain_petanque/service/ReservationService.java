@@ -34,10 +34,7 @@ public class ReservationService {
      * @param reservationRepository The repository.
      */
     @Autowired
-    public ReservationService(
-        ReservationRepository reservationRepository,
-        ReservationMapper reservationMapper
-    ) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper) {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
     }
@@ -48,9 +45,9 @@ public class ReservationService {
      * @param reservationDTO The reservation's informations.
      */
     @Modifying
-    public void addReservation(ReservationDTO reservationDTO) {
+    public ReservationDTO addReservation(ReservationDTO reservationDTO) {
         Reservation reservation = reservationMapper.toEntity(reservationDTO);
-        reservationRepository.save(reservation);
+        return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
     /**
@@ -62,11 +59,7 @@ public class ReservationService {
      * @throws NotFoundException If the reservation are not in the database.
      */
     @Modifying
-    public void updateReservation(
-        int userId,
-        int courtId,
-        ReservationDTO reservationDTO
-    ) throws NotFoundException {
+    public ReservationDTO updateReservation(int userId, int courtId, ReservationDTO reservationDTO) throws NotFoundException {
         ReservationKey reservationKey = new ReservationKey(userId, courtId);
         Optional<Reservation> reservationOptional =
             reservationRepository.findById(reservationKey);
@@ -79,7 +72,7 @@ public class ReservationService {
 
         reservationMapper.update(reservation, reservationDTO);
 
-        reservationRepository.save(reservation);
+        return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
     /**

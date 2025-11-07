@@ -33,10 +33,7 @@ public class CoordinatesService {
      * @param coordinatesRepository The repository.
      */
     @Autowired
-    public CoordinatesService(
-        CoordinatesRepository coordinatesRepository,
-        CoordinatesMapper coordinatesMapper
-    ) {
+    public CoordinatesService(CoordinatesRepository coordinatesRepository, CoordinatesMapper coordinatesMapper) {
         this.coordinatesRepository = coordinatesRepository;
         this.coordinatesMapper = coordinatesMapper;
     }
@@ -47,9 +44,9 @@ public class CoordinatesService {
      * @param coordinatesDTO The coordinates' informations.
      */
     @Modifying
-    public void addCoordinates(CoordinatesDTO coordinatesDTO) {
+    public CoordinatesDTO addCoordinates(CoordinatesDTO coordinatesDTO) {
         Coordinates coordinates = coordinatesMapper.toEntity(coordinatesDTO);
-        coordinatesRepository.save(coordinates);
+        return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }
 
     /**
@@ -60,7 +57,7 @@ public class CoordinatesService {
      * @throws NotFoundException If the coordinates are not in the database.
      */
     @Modifying
-    public void updateCoordinates(int id, CoordinatesDTO coordinatesDTO)
+    public CoordinatesDTO updateCoordinates(int id, CoordinatesDTO coordinatesDTO)
         throws NotFoundException {
         Optional<Coordinates> coordinatesOptional =
             coordinatesRepository.findById(id);
@@ -73,7 +70,7 @@ public class CoordinatesService {
 
         coordinatesMapper.update(coordinates, coordinatesDTO);
 
-        coordinatesRepository.save(coordinates);
+        return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }
 
     /**

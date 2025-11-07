@@ -33,10 +33,7 @@ public class CourtService {
      * @param courtRepository The repository.
      */
     @Autowired
-    public CourtService(
-        CourtRepository courtRepository,
-        CourtMapper courtMapper
-    ) {
+    public CourtService(CourtRepository courtRepository, CourtMapper courtMapper) {
         this.courtRepository = courtRepository;
         this.courtMapper = courtMapper;
     }
@@ -47,9 +44,9 @@ public class CourtService {
      * @param courtDTO The court's informations.
      */
     @Modifying
-    public void addCourt(CourtDTO courtDTO) {
+    public CourtDTO addCourt(CourtDTO courtDTO) {
         Court court = courtMapper.toEntity(courtDTO);
-        courtRepository.save(court);
+        return courtMapper.toDTO(courtRepository.save(court));
     }
 
     /**
@@ -60,7 +57,7 @@ public class CourtService {
      * @throws NotFoundException If the court are not in the database.
      */
     @Modifying
-    public void updateCourt(int id, CourtDTO courtDTO)
+    public CourtDTO updateCourt(int id, CourtDTO courtDTO)
         throws NotFoundException {
         Optional<Court> courtOptional = courtRepository.findById(id);
 
@@ -72,7 +69,7 @@ public class CourtService {
 
         courtMapper.update(court, courtDTO);
 
-        courtRepository.save(court);
+        return courtMapper.toDTO(courtRepository.save(court));
     }
 
     /**
