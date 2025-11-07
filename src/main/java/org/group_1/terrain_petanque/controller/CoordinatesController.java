@@ -1,7 +1,6 @@
 package org.group_1.terrain_petanque.controller;
 
 import org.group_1.terrain_petanque.dto.CoordinatesDTO;
-import org.group_1.terrain_petanque.entity.Coordinates;
 import org.group_1.terrain_petanque.service.CoordinatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

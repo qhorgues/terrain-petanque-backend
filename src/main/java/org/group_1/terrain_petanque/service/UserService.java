@@ -45,7 +45,7 @@ public class UserService {
     /**
      * This methods add a user in the database.
      * 
-     * @param userDTO The user's informations.
+     * @param userInputDTO The user's informations.
      */
     @Modifying
     public void addUser(UserInputDTO userInputDTO) {
@@ -59,7 +59,7 @@ public class UserService {
      * This methods update a user in the database.
      * 
      * @param id The user's id.
-     * @param userDTO The user's informations.
+     * @param userInputDTO The user's informations.
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
