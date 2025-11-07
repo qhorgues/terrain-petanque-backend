@@ -65,7 +65,7 @@ public interface ReservationMapper {
         @Mapping(target = "court", ignore = true)
     })
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void update(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
+    void update(@MappingTarget Reservation reservationEntity, ReservationDTO reservationDTO);
 
 
 
