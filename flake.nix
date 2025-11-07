@@ -42,8 +42,9 @@
               jdk
               maven
               jdt-language-server
-              nodejs
-              nodePackages.npm-check-updates
+              bruno
+              # nodejs
+              # nodePackages.npm-check-updates
             ];
           };
         };
