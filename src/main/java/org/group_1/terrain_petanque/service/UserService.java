@@ -45,9 +45,9 @@ public class UserService {
      * @param userDTO The user's informations.
      */
     @Modifying
-    public void addUser(UserInputDTO userInputDTO) {
+    public UserDTO addUser(UserInputDTO userInputDTO) {
         User user = userMapper.toEntity(userInputDTO);
-        userRepository.save(user);
+        return userMapper.toDTO(userRepository.save(user));
     }
 
     /**
@@ -58,7 +58,7 @@ public class UserService {
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
-    public void updateUser(int id, UserInputDTO userInputDTO)
+    public UserDTO updateUser(int id, UserInputDTO userInputDTO)
         throws NotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
 
@@ -70,7 +70,7 @@ public class UserService {
 
         userMapper.update(user, userInputDTO);
 
-        userRepository.save(user);
+        return userMapper.toDTO(userRepository.save(user));
     }
 
     /**

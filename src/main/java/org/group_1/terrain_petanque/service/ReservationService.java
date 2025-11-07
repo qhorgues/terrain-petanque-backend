@@ -48,9 +48,9 @@ public class ReservationService {
      * @param reservationDTO The reservation's informations.
      */
     @Modifying
-    public void addReservation(ReservationDTO reservationDTO) {
+    public ReservationDTO addReservation(ReservationDTO reservationDTO) {
         Reservation reservation = reservationMapper.toEntity(reservationDTO);
-        reservationRepository.save(reservation);
+        return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
     /**
@@ -62,7 +62,7 @@ public class ReservationService {
      * @throws NotFoundException If the reservation are not in the database.
      */
     @Modifying
-    public void updateReservation(
+    public ReservationDTO updateReservation(
         int userId,
         int courtId,
         ReservationDTO reservationDTO
@@ -79,7 +79,7 @@ public class ReservationService {
 
         reservationMapper.update(reservation, reservationDTO);
 
-        reservationRepository.save(reservation);
+        return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
     /**
