@@ -6,12 +6,12 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        name = "rest_api";
-        version = "0.0.1";
+        # name = "rest_api";
+        # version = "0.0.1";
       in {
         # packages.default = pkgs.stdenv.mkDerivation {
         #   pname = name;
