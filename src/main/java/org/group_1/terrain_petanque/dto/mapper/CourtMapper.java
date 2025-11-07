@@ -14,53 +14,44 @@ import org.mapstruct.factory.Mappers;
 /**
  * This interface representer a mapper (CourtDTO <=> Court).
  */
-@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(
+    componentModel = "spring",
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+)
 public interface CourtMapper {
-    
-    /**
-     * This field represents an instance of the mapper.
-     */
-    final CourtMapper INSTANCE = Mappers.getMapper(CourtMapper.class);
-
-
-
     /**
      * This method converts a court DTO into a court Entity.
-     * 
+     *
      * @param courtDTO The court DTO.
      * @return Return the court Entity.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
     Court toEntity(CourtDTO courtDTO);
 
-
-
     /**
      * This method converts a court Entity into a court DTO.
-     * 
+     *
      * @param courtEntity The court Entity.
      * @return Return the court DTO.
      */
     @Mapping(source = "coordinates", target = "coordinatesId")
     CourtDTO toDTO(Court courtEntity);
 
-
-
     /**
      * This method update an entity with the DTO.
-     * 
+     *
      * @param courtEntity The entity to updated.
      * @param courtDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @BeanMapping(
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    )
     void update(@MappingTarget Court courtEntity, CourtDTO courtDTO);
-
-
 
     /**
      * This method converts coordinates into an id.
-     * 
+     *
      * @param coordinatesEntity The coordinates.
      * @return Return the coordinates' id.
      */
@@ -68,16 +59,13 @@ public interface CourtMapper {
         return coordinatesEntity == null ? null : coordinatesEntity.getId();
     }
 
-
-
     /**
      * This method converts an id into coordinates.
-     * 
+     *
      * @param coordinatesId The id.
      * @return Return the coordinates.
      */
     default Coordinates map(Integer coordinatesId) {
         return Coordinates.obtainCoordinates(coordinatesId);
     }
-
 }

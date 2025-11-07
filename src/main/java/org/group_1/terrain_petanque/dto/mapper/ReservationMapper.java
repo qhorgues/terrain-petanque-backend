@@ -16,62 +16,62 @@ import org.mapstruct.factory.Mappers;
 /**
  * This interface representer a mapper (ReservationDTO <=> Reservation).
  */
-@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(
+    componentModel = "spring",
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+)
 public interface ReservationMapper {
-
-    /**
-     * This field represents an instance of the mapper.
-     */
-    final ReservationMapper INSTANCE = Mappers.getMapper(ReservationMapper.class);
-
-
-
     /**
      * This method converts a reservation DTO into a reservation Entity.
-     * 
+     *
      * @param reservationDTO The reservation DTO.
      * @return Return the reservation Entity.
      */
-    @Mappings({
-        @Mapping(target = "user", ignore = true),
-        @Mapping(target = "court", ignore = true)
-    })
+    @Mappings(
+        {
+            @Mapping(target = "user", ignore = true),
+            @Mapping(target = "court", ignore = true),
+        }
+    )
     Reservation toEntity(ReservationDTO reservationDTO);
-
-
 
     /**
      * This method converts a reservation Entity into a reservation DTO.
-     * 
+     *
      * @param reservationEntity The reservation Entity.
      * @return Return the reservation DTO.
      */
-    @Mappings({
-        @Mapping(source = "user", target = "userId"),
-        @Mapping(source = "court", target = "courtId")
-    })
+    @Mappings(
+        {
+            @Mapping(source = "user", target = "userId"),
+            @Mapping(source = "court", target = "courtId"),
+        }
+    )
     ReservationDTO toDTO(Reservation reservationEntity);
-
-
 
     /**
      * This method update an entity with the DTO.
-     * 
+     *
      * @param reservationEntity The entity to updated.
      * @param reservationDTO The DTO.
      */
-    @Mappings({
-        @Mapping(target = "user", ignore = true),
-        @Mapping(target = "court", ignore = true)
-    })
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void update(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
-
-
+    @Mappings(
+        {
+            @Mapping(target = "user", ignore = true),
+            @Mapping(target = "court", ignore = true),
+        }
+    )
+    @BeanMapping(
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    )
+    void update(
+        @MappingTarget Reservation reservationEntity,
+        ReservationDTO resevationDTO
+    );
 
     /**
      * This method converts a user into an id.
-     * 
+     *
      * @param userEntity The user.
      * @return Return the user's id.
      */
@@ -79,11 +79,9 @@ public interface ReservationMapper {
         return userEntity == null ? null : userEntity.getId();
     }
 
-
-
     /**
      * This method converts a court into an id.
-     * 
+     *
      * @param courtEntity The court.
      * @return Return the court's id.
      */
@@ -91,11 +89,9 @@ public interface ReservationMapper {
         return courtEntity == null ? null : courtEntity.getId();
     }
 
-
-
     /**
      * This method converts an id into an user.
-     * 
+     *
      * @param userId The id.
      * @return Return the user.
      */
@@ -103,16 +99,13 @@ public interface ReservationMapper {
         return User.obtainUser(userId);
     }
 
-
-
     /**
      * This method converts an id into a court.
-     * 
+     *
      * @param courtId The id.
      * @return Return the court.
      */
     default Court idToCourt(Integer courtId) {
         return Court.obtainCourt(courtId);
     }
-    
 }

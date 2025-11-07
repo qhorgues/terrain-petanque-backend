@@ -14,53 +14,47 @@ import org.mapstruct.factory.Mappers;
 /**
  * This interface representer a mapper (CoordinatesDTO <=> Coordinates).
  */
-@Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(
+    componentModel = "spring",
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+)
 public interface CoordinatesMapper {
-
-    /**
-     * This field represents an instance of the mapper.
-     */
-    final CoordinatesMapper INSTANCE = Mappers.getMapper(CoordinatesMapper.class);
-    
-
-
     /**
      * This method converts coordinates DTO into coordinates Entity.
-     * 
+     *
      * @param coordinatesDTO The coordinates DTO.
      * @return Return the coordinates Entity.
      */
     @Mapping(source = "courtsId", target = "courts")
     Coordinates toEntity(CoordinatesDTO coordinatesDTO);
 
-
-
     /**
      * This method converts coordinates Entity into coordinates DTO.
-     * 
+     *
      * @param coordinatesEntity The coordinates Entity.
      * @return Return the coordinates DTO.
      */
     @Mapping(source = "courts", target = "courtsId")
     CoordinatesDTO toDTO(Coordinates coordinatesEntity);
 
-
-
     /**
      * This method update an entity with the DTO.
-     * 
+     *
      * @param coordinatesEntity The entity to updated.
      * @param coordinatesDTO The DTO.
      */
     @Mapping(source = "courtsId", target = "courts")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void update(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
-
-
+    @BeanMapping(
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    )
+    void update(
+        @MappingTarget Coordinates coordinatesEntity,
+        CoordinatesDTO coordinatesDTO
+    );
 
     /**
      * This method converts a court into an id.
-     * 
+     *
      * @param courtEntity The court.
      * @return Return the court's id.
      */
@@ -68,16 +62,13 @@ public interface CoordinatesMapper {
         return courtEntity == null ? null : courtEntity.getId();
     }
 
-
-
     /**
      * This method converts an id into a court.
-     * 
+     *
      * @param courtId The od.
      * @return Return the court.
      */
     default Court map(Integer courtId) {
         return Court.obtainCourt(courtId);
     }
-
 }
