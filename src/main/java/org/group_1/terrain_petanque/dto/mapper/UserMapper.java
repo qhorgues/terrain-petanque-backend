@@ -18,6 +18,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
 )
 public interface UserMapper {
+
     /**
      * This method converts a user DTO into a user Entity.
      *
@@ -27,6 +28,8 @@ public interface UserMapper {
     @Mapping(target = "password", ignore = true)
     User toEntity(UserDTO userDTO);
 
+
+
     /**
      * This method converts a user input DTO into a user Entity.
      *
@@ -34,6 +37,8 @@ public interface UserMapper {
      * @return Return the user Entity.
      */
     User toEntity(UserInputDTO userInputDTO);
+
+
 
     /**
      * This method converts a user Entity into a user DTO.
@@ -43,14 +48,25 @@ public interface UserMapper {
      */
     UserDTO toDTO(User userEntity);
 
+
+
     /**
-     * This method update an entity with the DTO.
+     * This method update partially an entity with the DTO.
      *
      * @param userEntity The entity to updated.
      * @param userInputDTO The DTO.
      */
-    @BeanMapping(
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-    )
-    void update(@MappingTarget User userEntity, UserInputDTO userInputDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(@MappingTarget User userEntity, UserInputDTO userInputDTO);
+
+
+
+    /**
+     * This method update fully an entity with the DTO.
+     *
+     * @param userEntity The entity to updated.
+     * @param userInputDTO The DTO.
+     */
+    void fullUpdate(@MappingTarget User userEntity, UserInputDTO userInputDTO);
+
 }

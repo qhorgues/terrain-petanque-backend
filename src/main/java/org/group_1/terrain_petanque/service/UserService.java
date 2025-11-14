@@ -51,14 +51,14 @@ public class UserService {
     }
 
     /**
-     * This methods update a user in the database.
+     * This methods update partially a user in the database.
      *
      * @param id The user's id.
      * @param userDTO The user's informations.
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
-    public UserDTO updateUser(int id, UserInputDTO userInputDTO)
+    public UserDTO partialUpdateUser(int id, UserInputDTO userInputDTO)
         throws NotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
 
@@ -68,7 +68,30 @@ public class UserService {
 
         User user = userOptional.get();
 
-        userMapper.update(user, userInputDTO);
+        userMapper.partialUpdate(user, userInputDTO);
+
+        return userMapper.toDTO(userRepository.save(user));
+    }
+
+    /**
+     * This methods update fully a user in the database.
+     *
+     * @param id The user's id.
+     * @param userDTO The user's informations.
+     * @throws NotFoundException If the user are not in the database.
+     */
+    @Modifying
+    public UserDTO fullUpdateUser(int id, UserInputDTO userInputDTO)
+        throws NotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        User user = userOptional.get();
+
+        userMapper.fullUpdate(user, userInputDTO);
 
         return userMapper.toDTO(userRepository.save(user));
     }

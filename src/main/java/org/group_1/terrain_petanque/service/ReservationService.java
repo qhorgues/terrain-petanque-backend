@@ -54,7 +54,7 @@ public class ReservationService {
     }
 
     /**
-     * This methods update a reservation in the database.
+     * This methods update partially a reservation in the database.
      *
      * @param userId The user's id in the reservation.
      * @param courtId The court's id in the reservation.
@@ -62,7 +62,7 @@ public class ReservationService {
      * @throws NotFoundException If the reservation are not in the database.
      */
     @Modifying
-    public ReservationDTO updateReservation(
+    public ReservationDTO partialUpdateReservation(
         int userId,
         int courtId,
         ReservationDTO reservationDTO
@@ -77,7 +77,36 @@ public class ReservationService {
 
         Reservation reservation = reservationOptional.get();
 
-        reservationMapper.update(reservation, reservationDTO);
+        reservationMapper.partialUpdate(reservation, reservationDTO);
+
+        return reservationMapper.toDTO(reservationRepository.save(reservation));
+    }
+
+    /**
+     * This methods update fully a reservation in the database.
+     *
+     * @param userId The user's id in the reservation.
+     * @param courtId The court's id in the reservation.
+     * @param reservationDTO The reservation's informations.
+     * @throws NotFoundException If the reservation are not in the database.
+     */
+    @Modifying
+    public ReservationDTO fullUpdateReservation(
+        int userId,
+        int courtId,
+        ReservationDTO reservationDTO
+    ) throws NotFoundException {
+        ReservationKey reservationKey = new ReservationKey(userId, courtId);
+        Optional<Reservation> reservationOptional =
+            reservationRepository.findById(reservationKey);
+
+        if (reservationOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        Reservation reservation = reservationOptional.get();
+
+        reservationMapper.fullUpdate(reservation, reservationDTO);
 
         return reservationMapper.toDTO(reservationRepository.save(reservation));
     }

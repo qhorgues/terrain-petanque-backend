@@ -53,14 +53,14 @@ public class CourtService {
     }
 
     /**
-     * This methods update a court in the database.
+     * This methods update partially a court in the database.
      *
      * @param id The court's id.
      * @param courtDTO The court's informations.
      * @throws NotFoundException If the court are not in the database.
      */
     @Modifying
-    public CourtDTO updateCourt(int id, CourtDTO courtDTO)
+    public CourtDTO partialUpdateCourt(int id, CourtDTO courtDTO)
         throws NotFoundException {
         Optional<Court> courtOptional = courtRepository.findById(id);
 
@@ -70,7 +70,30 @@ public class CourtService {
 
         Court court = courtOptional.get();
 
-        courtMapper.update(court, courtDTO);
+        courtMapper.partialUpdate(court, courtDTO);
+
+        return courtMapper.toDTO(courtRepository.save(court));
+    }
+
+    /**
+     * This methods update fully a court in the database.
+     *
+     * @param id The court's id.
+     * @param courtDTO The court's informations.
+     * @throws NotFoundException If the court are not in the database.
+     */
+    @Modifying
+    public CourtDTO fullUpdateCourt(int id, CourtDTO courtDTO)
+        throws NotFoundException {
+        Optional<Court> courtOptional = courtRepository.findById(id);
+
+        if (courtOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        Court court = courtOptional.get();
+
+        courtMapper.fullUpdate(court, courtDTO);
 
         return courtMapper.toDTO(courtRepository.save(court));
     }

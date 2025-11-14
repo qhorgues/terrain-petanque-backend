@@ -18,6 +18,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
 )
 public interface CourtMapper {
+
     /**
      * This method converts a court DTO into a court Entity.
      *
@@ -26,6 +27,8 @@ public interface CourtMapper {
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
     Court toEntity(CourtDTO courtDTO);
+
+
 
     /**
      * This method converts a court Entity into a court DTO.
@@ -36,17 +39,30 @@ public interface CourtMapper {
     @Mapping(source = "coordinates", target = "coordinatesId")
     CourtDTO toDTO(Court courtEntity);
 
+
+
     /**
-     * This method update an entity with the DTO.
+     * This method update partialy an entity with the DTO.
      *
      * @param courtEntity The entity to updated.
      * @param courtDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    @BeanMapping(
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-    )
-    void update(@MappingTarget Court courtEntity, CourtDTO courtDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(@MappingTarget Court courtEntity, CourtDTO courtDTO);
+
+
+
+    /**
+     * This method update fully an entity with the DTO.
+     *
+     * @param courtEntity The entity to updated.
+     * @param courtDTO The DTO.
+     */
+    @Mapping(source = "coordinatesId", target = "coordinates")
+    void fullUpdate(@MappingTarget Court courtEntity, CourtDTO courtDTO);
+
+
 
     /**
      * This method converts coordinates into an id.
@@ -58,6 +74,8 @@ public interface CourtMapper {
         return coordinatesEntity == null ? null : coordinatesEntity.getId();
     }
 
+
+
     /**
      * This method converts an id into coordinates.
      *
@@ -67,4 +85,5 @@ public interface CourtMapper {
     default Coordinates map(Integer coordinatesId) {
         return Coordinates.obtainCoordinates(coordinatesId);
     }
+
 }

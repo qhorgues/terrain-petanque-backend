@@ -20,6 +20,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
 )
 public interface ReservationMapper {
+
     /**
      * This method converts a reservation DTO into a reservation Entity.
      *
@@ -33,6 +34,8 @@ public interface ReservationMapper {
         }
     )
     Reservation toEntity(ReservationDTO reservationDTO);
+
+
 
     /**
      * This method converts a reservation Entity into a reservation DTO.
@@ -48,8 +51,10 @@ public interface ReservationMapper {
     )
     ReservationDTO toDTO(Reservation reservationEntity);
 
+
+
     /**
-     * This method update an entity with the DTO.
+     * This method update partially an entity with the DTO.
      *
      * @param reservationEntity The entity to updated.
      * @param reservationDTO The DTO.
@@ -60,13 +65,26 @@ public interface ReservationMapper {
             @Mapping(target = "court", ignore = true),
         }
     )
-    @BeanMapping(
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
+
+
+
+    /**
+     * This method update fully an entity with the DTO.
+     *
+     * @param reservationEntity The entity to updated.
+     * @param reservationDTO The DTO.
+     */
+    @Mappings(
+        {
+            @Mapping(target = "user", ignore = true),
+            @Mapping(target = "court", ignore = true),
+        }
     )
-    void update(
-        @MappingTarget Reservation reservationEntity,
-        ReservationDTO resevationDTO
-    );
+    void fullUpdate(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
+
+
 
     /**
      * This method converts a user into an id.
@@ -78,6 +96,8 @@ public interface ReservationMapper {
         return userEntity == null ? null : userEntity.getId();
     }
 
+
+
     /**
      * This method converts a court into an id.
      *
@@ -87,6 +107,8 @@ public interface ReservationMapper {
     default Integer map(Court courtEntity) {
         return courtEntity == null ? null : courtEntity.getId();
     }
+
+
 
     /**
      * This method converts an id into an user.
@@ -98,6 +120,8 @@ public interface ReservationMapper {
         return User.obtainUser(userId);
     }
 
+
+
     /**
      * This method converts an id into a court.
      *
@@ -107,4 +131,5 @@ public interface ReservationMapper {
     default Court idToCourt(Integer courtId) {
         return Court.obtainCourt(courtId);
     }
+
 }

@@ -53,14 +53,14 @@ public class CoordinatesService {
     }
 
     /**
-     * This methods update coordinates in the database.
+     * This methods update partially coordinates in the database.
      *
      * @param id The coordinates' id.
      * @param coordinatesDTO The coordinates' informations.
      * @throws NotFoundException If the coordinates are not in the database.
      */
     @Modifying
-    public CoordinatesDTO updateCoordinates(
+    public CoordinatesDTO partialUpdateCoordinates(
         int id,
         CoordinatesDTO coordinatesDTO
     ) throws NotFoundException {
@@ -73,7 +73,33 @@ public class CoordinatesService {
 
         Coordinates coordinates = coordinatesOptional.get();
 
-        coordinatesMapper.update(coordinates, coordinatesDTO);
+        coordinatesMapper.partialUpdate(coordinates, coordinatesDTO);
+
+        return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
+    }
+
+    /**
+     * This methods update fully coordinates in the database.
+     *
+     * @param id The coordinates' id.
+     * @param coordinatesDTO The coordinates' informations.
+     * @throws NotFoundException If the coordinates are not in the database.
+     */
+    @Modifying
+    public CoordinatesDTO fullUpdateCoordinates(
+        int id,
+        CoordinatesDTO coordinatesDTO
+    ) throws NotFoundException {
+        Optional<Coordinates> coordinatesOptional =
+            coordinatesRepository.findById(id);
+
+        if (coordinatesOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        Coordinates coordinates = coordinatesOptional.get();
+
+        coordinatesMapper.fullUpdate(coordinates, coordinatesDTO);
 
         return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }

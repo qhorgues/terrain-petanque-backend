@@ -18,6 +18,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
 )
 public interface CoordinatesMapper {
+
     /**
      * This method converts coordinates DTO into coordinates Entity.
      *
@@ -26,6 +27,8 @@ public interface CoordinatesMapper {
      */
     @Mapping(source = "courtId", target = "court")
     Coordinates toEntity(CoordinatesDTO coordinatesDTO);
+
+
 
     /**
      * This method converts coordinates Entity into coordinates DTO.
@@ -36,20 +39,30 @@ public interface CoordinatesMapper {
     @Mapping(source = "court", target = "courtId")
     CoordinatesDTO toDTO(Coordinates coordinatesEntity);
 
+
+
     /**
-     * This method update an entity with the DTO.
+     * This method update partially an entity with the DTO.
      *
      * @param coordinatesEntity The entity to updated.
      * @param coordinatesDTO The DTO.
      */
     @Mapping(source = "courtId", target = "court")
-    @BeanMapping(
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-    )
-    void update(
-        @MappingTarget Coordinates coordinatesEntity,
-        CoordinatesDTO coordinatesDTO
-    );
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
+
+
+
+    /**
+     * This method update fully an entity with the DTO.
+     *
+     * @param coordinatesEntity The entity to updated.
+     * @param coordinatesDTO The DTO.
+     */
+    @Mapping(source = "courtId", target = "court")
+    void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
+
+
 
     /**
      * This method converts a court into an id.
@@ -61,6 +74,8 @@ public interface CoordinatesMapper {
         return courtEntity == null ? null : courtEntity.getId();
     }
 
+
+
     /**
      * This method converts an id into a court.
      *
@@ -70,4 +85,5 @@ public interface CoordinatesMapper {
     default Court map(Integer courtId) {
         return Court.obtainCourt(courtId);
     }
+    
 }
