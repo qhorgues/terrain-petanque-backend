@@ -4,6 +4,7 @@ import java.util.List;
 import org.group_1.terrain_petanque.dto.CoordinatesDTO;
 import org.group_1.terrain_petanque.service.CoordinatesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,7 @@ public class CoordinatesController {
     public ResponseEntity<CoordinatesDTO> createCoordinates(
         @RequestBody CoordinatesDTO coordinates
     ) {
-        return ResponseEntity.ok(
-            coordinatesService.addCoordinates(coordinates)
-        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(coordinatesService.addCoordinates(coordinates));
     }
 
     @PutMapping("/{id}")

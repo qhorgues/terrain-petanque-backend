@@ -4,11 +4,12 @@ import java.util.List;
 import org.group_1.terrain_petanque.dto.ReservationDTO;
 import org.group_1.terrain_petanque.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/reservation")
+@RequestMapping("/api/v1/reservations")
 public class ReservationController {
 
     @Autowired
@@ -37,7 +38,7 @@ public class ReservationController {
     public ResponseEntity<ReservationDTO> createReservation(
         @RequestBody ReservationDTO reservation
     ) {
-        return ResponseEntity.ok(
+        return ResponseEntity.status(HttpStatus.CREATED).body(
             reservationService.addReservation(reservation)
         );
     }

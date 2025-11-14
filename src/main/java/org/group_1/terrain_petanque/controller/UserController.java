@@ -5,11 +5,12 @@ import org.group_1.terrain_petanque.dto.UserDTO;
 import org.group_1.terrain_petanque.dto.UserInputDTO;
 import org.group_1.terrain_petanque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class UserController {
     public ResponseEntity<UserDTO> createUser(
         @RequestBody UserInputDTO userInput
     ) {
-        return ResponseEntity.ok(userService.addUser(userInput));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userInput));
     }
 
     @PutMapping("/{id}")

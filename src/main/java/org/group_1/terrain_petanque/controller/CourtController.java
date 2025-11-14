@@ -4,11 +4,12 @@ import java.util.List;
 import org.group_1.terrain_petanque.dto.CourtDTO;
 import org.group_1.terrain_petanque.service.CourtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/court")
+@RequestMapping("/api/v1/courts")
 public class CourtController {
 
     @Autowired
@@ -30,7 +31,7 @@ public class CourtController {
 
     @PostMapping
     public ResponseEntity<CourtDTO> createCourt(@RequestBody CourtDTO court) {
-        return ResponseEntity.ok(courtService.addCourt(court));
+        return ResponseEntity.status(HttpStatus.CREATED).body(courtService.addCourt(court));
     }
 
     @PutMapping("/{id}")
