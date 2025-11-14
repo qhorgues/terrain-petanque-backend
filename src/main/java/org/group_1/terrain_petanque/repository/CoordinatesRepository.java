@@ -40,6 +40,6 @@ public interface CoordinatesRepository extends JpaRepository<Coordinates, Intege
      * @param court The court.
      * @return Return coordinates with the specified court.
      */
-    Optional<Coordinates> findByCourtsContains(Court court);
+    Optional<Coordinates> findByCourt(Court court);
 
 }

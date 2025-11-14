@@ -24,7 +24,7 @@ public interface CoordinatesMapper {
      * @param coordinatesDTO The coordinates DTO.
      * @return Return the coordinates Entity.
      */
-    @Mapping(source = "courtsId", target = "courts")
+    @Mapping(source = "courtId", target = "court")
     Coordinates toEntity(CoordinatesDTO coordinatesDTO);
 
     /**
@@ -33,7 +33,7 @@ public interface CoordinatesMapper {
      * @param coordinatesEntity The coordinates Entity.
      * @return Return the coordinates DTO.
      */
-    @Mapping(source = "courts", target = "courtsId")
+    @Mapping(source = "court", target = "courtId")
     CoordinatesDTO toDTO(Coordinates coordinatesEntity);
 
     /**
@@ -42,7 +42,7 @@ public interface CoordinatesMapper {
      * @param coordinatesEntity The entity to updated.
      * @param coordinatesDTO The DTO.
      */
-    @Mapping(source = "courtsId", target = "courts")
+    @Mapping(source = "courtId", target = "court")
     @BeanMapping(
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
     )

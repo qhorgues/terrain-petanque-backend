@@ -1,19 +1,15 @@
 package org.group_1.terrain_petanque.entity;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
@@ -72,42 +68,9 @@ public class Coordinates {
      * This attribute represents a link (One-To-Many) with the 'terrain' table. 
      * And 'terrain' table has the foreing key.
      */
-    @OneToMany(mappedBy = "coordinates")
-    @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) private Set<Court> courts = new HashSet<>();
-
-
-
-    /**
-     * This method returns the courts.
-     * The courts cannot be modified.
-     * 
-     * @return Return the courts.
-     */
-    public Set<Court> getCourts() {
-        return Collections.unmodifiableSet(courts);
-    }
-
-
-
-    /**
-     * This method add a court.
-     * 
-     * @param court The court to add.
-     */
-    public void addCourt(Court court) {
-        courts.add(court);
-    }
-
-
-
-    /**
-     * This method remove a court.
-     * 
-     * @param court The court to remove.
-     */
-    public void removeCourt(Court court) {
-        courts.remove(court);
-    }
+    @OneToOne(mappedBy = "coordinates")
+    @JoinColumn(nullable = false)
+    private Court court;
 
 
 

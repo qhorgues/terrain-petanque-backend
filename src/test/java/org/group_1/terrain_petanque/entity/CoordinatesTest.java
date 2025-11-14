@@ -3,8 +3,6 @@ package org.group_1.terrain_petanque.entity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -130,18 +128,18 @@ public class CoordinatesTest {
     /**
      * This method tests the getter of the courts.
      */
-    @Test
+    /*@Test
     public void getCourtsTest() {
         // Init
         Coordinates coordinates = new Coordinates("100", "120");
 
         // Test
-        Set<Court> courts = coordinates.getCourts();
+        Set<Court> courts = coordinates.getCourt();
         assertThrows(UnsupportedOperationException.class, () -> {
             courts.clear();
         });
 
         // Assertion
-        assertEquals(coordinates.getCourts(), courts);
-    }
+        assertEquals(coordinates.getCourt(), courts);
+    }*/
 }
