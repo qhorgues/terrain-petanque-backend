@@ -1,43 +1,26 @@
 package com.polytech.terrainpetanque.dto.output;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * This class represents a Data Transfer Object (DTO) for coordinates.
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
-public class CoordinatesOutputDTO {
+public record CoordinatesOutputDTO(
+    /**
+     * This field is the coordinates' id.
+     */
+    int id,
 
     /**
-     * This attribute represents the coordinates' id.
+     * This field is the coordinates' latitude.
      */
-    private Integer id;
-
-
+    String latitude,
 
     /**
-     * This attribute represents the coordinates' latitude.
+     * This field is the coordinates' longitude.
      */
-    private String latitude;
-
-
+    String longitude,
 
     /**
-     * This attribute represents the coordinates' longitude.
+     * This is the court's id for coordinates.
      */
-    private String longitude;
-
-
-
-    /**
-     * This attribute represents the coordinates' courts.
-     */
-    private Integer courtId;
-
-}
+    int courtId
+) {}

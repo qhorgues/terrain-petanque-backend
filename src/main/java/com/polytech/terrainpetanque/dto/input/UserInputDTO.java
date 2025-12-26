@@ -1,57 +1,31 @@
 package com.polytech.terrainpetanque.dto.input;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * This class represents a Data Transfer Object (DTO) for a user.
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class UserInputDTO {
+public record UserInputDTO(
+    /**
+     * This field is the user's name.
+     */
+     String name,
 
     /**
-     * This attribute represents the user's id.
+     * This field is the user's surname.
      */
-    @Getter @Setter private Integer id;
-
-
+    String surname,
 
     /**
-     * This attribute represents the user's name.
+     * This field is the user's mail.
      */
-    @Getter @Setter private String name;
-
-
+    String mail,
 
     /**
-     * This attribute represents the user's surname.
+     * This field is the user's password.
      */
-    @Getter @Setter private String surname;
-
-
+    String password,
 
     /**
-     * This attribute represents the user's mail.
+     * This field is the user's username.
      */
-    @Getter @Setter private String mail;
-
-
-
-    /**
-     * This attribute represents the user's password.
-     */
-    @Getter @Setter private String password;
-
-
-
-    /**
-     * This attribute represents the user's username.
-     */
-    @Getter @Setter private String username;
-
-}
+    String username
+) {}

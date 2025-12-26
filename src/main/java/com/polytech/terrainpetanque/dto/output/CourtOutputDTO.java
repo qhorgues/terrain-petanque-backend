@@ -1,50 +1,31 @@
 package com.polytech.terrainpetanque.dto.output;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * This class represents a Data Transfer Object (DTO) for a court.
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CourtOutputDTO {
+public record CourtOutputDTO(
+    /**
+     * This field is the court's id.
+     */
+    int id,
 
     /**
-     * This attribute represents the court's id.
+     * This field is the court's name.
      */
-    @Getter @Setter private Integer id;
-
-
+    String name,
 
     /**
-     * This attribute represents the court's name.
+     * This field is the court's quantity.
      */
-    @Getter @Setter private String name;
-
-
+    int quantity,
 
     /**
-     * This attribute represents the court's quantity.
+     * This field is the court's description.
      */
-    @Getter @Setter private int quantity;
-
-
+    String description,
 
     /**
-     * This attribute represents the court's description.
+     * This field is the coordinates' id for a court.
      */
-    @Getter @Setter private String description;
-
-
-
-    /**
-     * This attribute represents the court's coordinates.
-     */
-    @Getter @Setter private Integer coordinatesId;
-
-}
+    int coordinatesId
+) {}
