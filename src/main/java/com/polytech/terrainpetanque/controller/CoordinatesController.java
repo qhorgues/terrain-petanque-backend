@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.polytech.terrainpetanque.dto.input.CoordinatesInputDTO;
 import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
 import com.polytech.terrainpetanque.service.CoordinatesService;
 
@@ -77,9 +78,7 @@ public class CoordinatesController {
      * @return Return the created coordinates.
      */
     @PostMapping
-    public ResponseEntity<CoordinatesOutputDTO> createCoordinates(
-        @RequestBody CoordinatesOutputDTO coordinates
-    ) {
+    public ResponseEntity<CoordinatesOutputDTO> createCoordinates(@RequestBody CoordinatesInputDTO coordinates) {
         return ResponseEntity.status(HttpStatus.CREATED).body(coordinatesService.addCoordinates(coordinates));
     }
 
@@ -92,11 +91,9 @@ public class CoordinatesController {
      * @return Return the updated coordinates.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CoordinatesOutputDTO> fullUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesOutputDTO coordinates) {
+    public ResponseEntity<CoordinatesOutputDTO> fullUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesInputDTO coordinates) {
         try {
-            return ResponseEntity.ok(
-                coordinatesService.fullUpdateCoordinates(id, coordinates)
-            );
+            return ResponseEntity.ok(coordinatesService.fullUpdateCoordinates(id, coordinates));
         } catch (Exception exception) {
             return ResponseEntity.notFound().build();
         }
@@ -111,11 +108,9 @@ public class CoordinatesController {
      * @return Return the updated coordinates.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<CoordinatesOutputDTO> partialUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesOutputDTO coordinates) {
+    public ResponseEntity<CoordinatesOutputDTO> partialUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesInputDTO coordinates) {
         try {
-            return ResponseEntity.ok(
-                coordinatesService.partialUpdateCoordinates(id, coordinates)
-            );
+            return ResponseEntity.ok(coordinatesService.partialUpdateCoordinates(id, coordinates));
         } catch (Exception exception) {
             return ResponseEntity.notFound().build();
         }

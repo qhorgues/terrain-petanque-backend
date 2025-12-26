@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.polytech.terrainpetanque.dto.input.CourtInputDTO;
 import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
 import com.polytech.terrainpetanque.service.CourtService;
 
@@ -78,7 +79,7 @@ public class CourtController {
      * @return Return the created court.
      */
     @PostMapping
-    public ResponseEntity<CourtOutputDTO> createCourt(@RequestBody CourtOutputDTO court) {
+    public ResponseEntity<CourtOutputDTO> createCourt(@RequestBody CourtInputDTO court) {
         return ResponseEntity.status(HttpStatus.CREATED).body(courtService.addCourt(court));
     }
 
@@ -92,10 +93,7 @@ public class CourtController {
      * @return Return the updated court.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> fullUpdateCourt(
-        @PathVariable int id,
-        @RequestBody CourtOutputDTO court
-    ) {
+    public ResponseEntity<CourtOutputDTO> fullUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
         try {
             return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
         } catch (Exception exception) {
@@ -113,10 +111,7 @@ public class CourtController {
      * @return Return the updated court.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(
-        @PathVariable int id,
-        @RequestBody CourtOutputDTO court
-    ) {
+    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
         try {
             return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
         } catch (Exception exception) {

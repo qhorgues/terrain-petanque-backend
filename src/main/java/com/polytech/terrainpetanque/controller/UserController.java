@@ -95,10 +95,7 @@ public class UserController {
      * @return Return the updated user.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> fullUpdateUser(
-        @PathVariable int id,
-        @RequestBody UserInputDTO userInput
-    ) {
+    public ResponseEntity<UserOutputDTO> fullUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
         try {
             return ResponseEntity.ok(userService.fullUpdateUser(id, userInput));
         } catch (Exception exception) {
@@ -116,10 +113,7 @@ public class UserController {
      * @return Return the updated user.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> partialUpdateUser(
-        @PathVariable int id,
-        @RequestBody UserInputDTO userInput
-    ) {
+    public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
         try {
             return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
         } catch (Exception exception) {

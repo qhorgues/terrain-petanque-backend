@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.input.CoordinatesInputDTO;
 import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
 import com.polytech.terrainpetanque.entity.Coordinates;
 import com.polytech.terrainpetanque.entity.Court;
@@ -23,11 +24,11 @@ public interface CoordinatesMapper {
     /**
      * This method converts coordinates DTO into coordinates Entity.
      *
-     * @param coordinatesOutputDTO The coordinates DTO.
+     * @param coordinatesInputDTO The coordinates DTO.
      * @return Return the coordinates Entity.
      */
-    @Mapping(source = "courtId", target = "court")
-    Coordinates toEntity(CoordinatesOutputDTO coordinatesOutputDTO);
+    @Mapping(target = "court", ignore = true)
+    Coordinates toEntity(CoordinatesInputDTO coordinatesInputDTO);
 
 
 
@@ -46,11 +47,11 @@ public interface CoordinatesMapper {
      * This method update partially an entity with the DTO.
      *
      * @param coordinatesEntity The entity to updated.
-     * @param coordinatesOutputDTO The DTO.
+     * @param coordinatesInputDTO The DTO.
      */
-    @Mapping(source = "courtId", target = "court")
+    @Mapping(target = "court", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesOutputDTO coordinatesOutputDTO);
+    void partialUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesInputDTO coordinatesInputDTO);
 
 
 
@@ -58,10 +59,10 @@ public interface CoordinatesMapper {
      * This method update fully an entity with the DTO.
      *
      * @param coordinatesEntity The entity to updated.
-     * @param coordinatesOutputDTO The DTO.
+     * @param coordinatesInputDTO The DTO.
      */
-    @Mapping(source = "courtId", target = "court")
-    void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesOutputDTO coordinatesOutputDTO);
+    @Mapping(target = "court", ignore = true)
+    void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesInputDTO coordinatesInputDTO);
 
 
 

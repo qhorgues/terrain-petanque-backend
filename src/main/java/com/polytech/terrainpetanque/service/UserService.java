@@ -25,22 +25,32 @@ import jakarta.transaction.Transactional;
 public class UserService {
 
     /**
-     * This attribute is the repository.
+     * This attribute represents the repository for the users..
      */
     private final UserRepository userRepository;
 
+
+
+    /**
+     * This attribute represents the mapper for the users.
+     */
     private final UserMapper userMapper;
+
+
 
     /**
      * The constructor.
      *
-     * @param userRepository The repository.
+     * @param userRepository The repository for the users.
+     * @param userMapper The mapper for the users.
      */
     @Autowired
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
+
+
 
     /**
      * This methods add a user in the database.
@@ -52,6 +62,8 @@ public class UserService {
         User user = userMapper.toEntity(userInputDTO);
         return userMapper.toDTO(userRepository.save(user));
     }
+
+
 
     /**
      * This methods update partially a user in the database.
@@ -76,6 +88,8 @@ public class UserService {
         return userMapper.toDTO(userRepository.save(user));
     }
 
+
+
     /**
      * This methods update fully a user in the database.
      *
@@ -99,6 +113,8 @@ public class UserService {
         return userMapper.toDTO(userRepository.save(user));
     }
 
+
+
     /**
      * This methods delete a user in the database.
      *
@@ -108,6 +124,8 @@ public class UserService {
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
+
+
 
     /**
      * This method get a specific user.
@@ -128,6 +146,8 @@ public class UserService {
         return userMapper.toDTO(user);
     }
 
+
+
     /**
      * This method get all users.
      *
@@ -144,4 +164,5 @@ public class UserService {
 
         return result;
     }
+
 }

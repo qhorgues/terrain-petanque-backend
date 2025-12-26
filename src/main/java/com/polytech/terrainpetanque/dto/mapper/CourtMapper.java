@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.input.CourtInputDTO;
 import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
 import com.polytech.terrainpetanque.entity.Coordinates;
 import com.polytech.terrainpetanque.entity.Court;
@@ -23,11 +24,11 @@ public interface CourtMapper {
     /**
      * This method converts a court DTO into a court Entity.
      *
-     * @param courtOutputDTO The court DTO.
+     * @param courtInputDTO The court DTO.
      * @return Return the court Entity.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    Court toEntity(CourtOutputDTO courtOutputDTO);
+    Court toEntity(CourtInputDTO courtInputDTO);
 
 
 
@@ -46,11 +47,11 @@ public interface CourtMapper {
      * This method update partialy an entity with the DTO.
      *
      * @param courtEntity The entity to updated.
-     * @param courtOutputDTO The DTO.
+     * @param courtInputDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Court courtEntity, CourtOutputDTO courtOutputDTO);
+    void partialUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
 
 
 
@@ -58,10 +59,10 @@ public interface CourtMapper {
      * This method update fully an entity with the DTO.
      *
      * @param courtEntity The entity to updated.
-     * @param courtOutputDTO The DTO.
+     * @param courtInputDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    void fullUpdate(@MappingTarget Court courtEntity, CourtOutputDTO courtOutputDTO);
+    void fullUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
 
 
 
