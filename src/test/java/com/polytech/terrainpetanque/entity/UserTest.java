@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +23,7 @@ public class UserTest {
     }
 
 
-    
+
     /**
      * This method tests the constructor.
      */
@@ -59,7 +59,7 @@ public class UserTest {
     public void getIdTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-        
+
         // Assertion
         assertEquals(user.getId(), null);
     }
@@ -73,7 +73,7 @@ public class UserTest {
     public void getNameTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-        
+
         // Assertion
         assertEquals(user.getName(), "Name");
     }
@@ -108,7 +108,7 @@ public class UserTest {
     public void getSurnameTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-        
+
         // Assertion
         assertEquals(user.getSurname(), "Surname");
     }
@@ -143,7 +143,7 @@ public class UserTest {
     public void getMailTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-        
+
         // Assertion
         assertEquals(user.getMail(), "mail@mail.com");
     }
@@ -178,7 +178,7 @@ public class UserTest {
     public void getPasswordTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-        
+
         // Assertion
         assertEquals(user.getPassword(), "password");
     }
@@ -213,7 +213,7 @@ public class UserTest {
     public void getUsernameTest() {
         // Init & test
         User user = new User("Name", "Surname", "mail@mail.com", "password", "username");
-       
+
         // Assertion
         assertEquals(user.getUsername(), "username");
     }

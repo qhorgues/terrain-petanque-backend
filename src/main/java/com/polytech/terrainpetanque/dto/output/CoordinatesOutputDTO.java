@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.dto;
+package com.polytech.terrainpetanque.dto.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CoordinatesDTO {
+public class CoordinatesOutputDTO {
 
     /**
      * This attribute represents the coordinates' id.
@@ -39,5 +39,5 @@ public class CoordinatesDTO {
      * This attribute represents the coordinates' courts.
      */
     private Integer courtId;
-    
+
 }

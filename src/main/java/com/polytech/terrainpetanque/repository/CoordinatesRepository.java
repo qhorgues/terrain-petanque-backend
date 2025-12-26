@@ -1,12 +1,13 @@
-package org.group_1.terrain_petanque.repository;
+package com.polytech.terrainpetanque.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.group_1.terrain_petanque.entity.Coordinates;
-import org.group_1.terrain_petanque.entity.Court;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.polytech.terrainpetanque.entity.Coordinates;
+import com.polytech.terrainpetanque.entity.Court;
 
 /**
  * This interface represents the repository for the 'coordonnées' table.
@@ -16,7 +17,7 @@ public interface CoordinatesRepository extends JpaRepository<Coordinates, Intege
 
     /**
      * This method returns a list of coordinates with a specific latitude.
-     * 
+     *
      * @param latitude The latitude.
      * @return Return a list of coordinates with the specified latitude.
      */
@@ -26,7 +27,7 @@ public interface CoordinatesRepository extends JpaRepository<Coordinates, Intege
 
     /**
      * This method returns a list of coordinates with a specific longitude.
-     * 
+     *
      * @param longitude The longitude.
      * @return Return a list of coordinates with the specified longitude.
      */
@@ -36,7 +37,7 @@ public interface CoordinatesRepository extends JpaRepository<Coordinates, Intege
 
     /**
      * This method returns coordinates with a specific court.
-     * 
+     *
      * @param court The court.
      * @return Return coordinates with the specified court.
      */

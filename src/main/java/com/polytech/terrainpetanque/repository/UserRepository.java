@@ -1,22 +1,23 @@
-package org.group_1.terrain_petanque.repository;
+package com.polytech.terrainpetanque.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.group_1.terrain_petanque.entity.Reservation;
-import org.group_1.terrain_petanque.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.polytech.terrainpetanque.entity.Reservation;
+import com.polytech.terrainpetanque.entity.User;
 
 /**
  * This interface represents the repository for the 'utilisateur' table.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    
+
     /**
      * This method returns a list of users with a specific name.
-     * 
+     *
      * @param name The name.
      * @return Return a list of users with the specified name.
      */
@@ -26,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific surname.
-     * 
+     *
      * @param surname The surname.
      * @return Return a list of users with the specified surname.
      */
@@ -36,7 +37,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific name and surname.
-     * 
+     *
      * @param name The name.
      * @param surname The surname.
      * @return Return a list of users with the specified name and surname.
@@ -47,7 +48,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific mail.
-     * 
+     *
      * @param mail The mail.
      * @return Return a list of users with the specified mail.
      */
@@ -57,7 +58,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific password.
-     * 
+     *
      * @param password The password.
      * @return Return a list of users with the specified password.
      */
@@ -67,7 +68,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific username.
-     * 
+     *
      * @param username The username.
      * @return Return a list of users with the specified username.
      */
@@ -77,7 +78,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * This method returns a list of users with a specific reservation.
-     * 
+     *
      * @param reservation The reservation.
      * @return Return a list of users with the specified reservation.
      */

@@ -1,9 +1,7 @@
-package org.group_1.terrain_petanque.controller;
+package com.polytech.terrainpetanque.controller;
 
 import java.util.List;
 
-import org.group_1.terrain_petanque.dto.CourtDTO;
-import org.group_1.terrain_petanque.service.CourtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
+import com.polytech.terrainpetanque.service.CourtService;
 
 /**
  * This class represents the controller for a court.
@@ -32,7 +33,7 @@ public class CourtController {
 
     /**
      * The constructor.
-     * 
+     *
      * @param coordinatesService the court's service.
      */
     public CourtController(CourtService courtService) {
@@ -43,11 +44,11 @@ public class CourtController {
 
     /**
      * This method returns all courts.
-     * 
+     *
      * @return Return all courts.
      */
     @GetMapping
-    public ResponseEntity<List<CourtDTO>> getAllCourt() {
+    public ResponseEntity<List<CourtOutputDTO>> getAllCourt() {
         return ResponseEntity.ok(courtService.getAllCourts());
     }
 
@@ -55,12 +56,12 @@ public class CourtController {
 
     /**
      * This method returns a specific court.
-     * 
+     *
      * @param id The court's id.
      * @return Return the specific court.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CourtDTO> getCourt(@PathVariable int id) {
+    public ResponseEntity<CourtOutputDTO> getCourt(@PathVariable int id) {
         try {
             return ResponseEntity.ok(courtService.getCourt(id));
         } catch (Exception exception) {
@@ -72,12 +73,12 @@ public class CourtController {
 
     /**
      * This method creates a court.
-     * 
+     *
      * @param court The court's informations.
      * @return Return the created court.
      */
     @PostMapping
-    public ResponseEntity<CourtDTO> createCourt(@RequestBody CourtDTO court) {
+    public ResponseEntity<CourtOutputDTO> createCourt(@RequestBody CourtOutputDTO court) {
         return ResponseEntity.status(HttpStatus.CREATED).body(courtService.addCourt(court));
     }
 
@@ -85,15 +86,15 @@ public class CourtController {
 
     /**
      * This method fully updates a court.
-     * 
+     *
      * @param id The court's id.
      * @param court The court's informations.
      * @return Return the updated court.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CourtDTO> fullUpdateCourt(
+    public ResponseEntity<CourtOutputDTO> fullUpdateCourt(
         @PathVariable int id,
-        @RequestBody CourtDTO court
+        @RequestBody CourtOutputDTO court
     ) {
         try {
             return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
@@ -106,15 +107,15 @@ public class CourtController {
 
     /**
      * This method partially updates a court.
-     * 
+     *
      * @param id The court's id.
      * @param court The court's informations.
      * @return Return the updated court.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<CourtDTO> partialUpdateCourt(
+    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(
         @PathVariable int id,
-        @RequestBody CourtDTO court
+        @RequestBody CourtOutputDTO court
     ) {
         try {
             return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
@@ -127,7 +128,7 @@ public class CourtController {
 
     /**
      * This method deletes a court.
-     * 
+     *
      * @param id The court's id.
      * @return Return no content as the deleted court.
      */

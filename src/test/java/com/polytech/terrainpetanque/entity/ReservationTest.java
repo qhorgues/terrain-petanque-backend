@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * This class tests the Court entity.
  */
 public class ReservationTest {
-    
+
     /**
      * This method tests the constructor.
      */

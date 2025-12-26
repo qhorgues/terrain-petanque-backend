@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,7 +22,7 @@ public class CoordinatesTest {
         assertEquals(test.getId(), 100);
     }
 
-    
+
 
     /**
      * This method tests the constructor.
@@ -39,7 +39,7 @@ public class CoordinatesTest {
     }
 
 
-    
+
     /**
      * This method tests the getter of the id.
      */
@@ -97,7 +97,7 @@ public class CoordinatesTest {
         // Init & test
         Coordinates coordinates = new Coordinates("100", "120");
 
-        // Assertion 
+        // Assertion
         assertEquals(coordinates.getLongitude(), "120");
     }
 

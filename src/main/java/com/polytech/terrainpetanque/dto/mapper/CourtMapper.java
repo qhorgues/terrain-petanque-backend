@@ -1,8 +1,5 @@
-package org.group_1.terrain_petanque.dto.mapper;
+package com.polytech.terrainpetanque.dto.mapper;
 
-import org.group_1.terrain_petanque.dto.CourtDTO;
-import org.group_1.terrain_petanque.entity.Coordinates;
-import org.group_1.terrain_petanque.entity.Court;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
@@ -10,8 +7,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
+import com.polytech.terrainpetanque.entity.Coordinates;
+import com.polytech.terrainpetanque.entity.Court;
+
 /**
- * This interface representer a mapper (CourtDTO <=> Court).
+ * This interface representer a mapper (CourtOutputDTO <=> Court).
  */
 @Mapper(
     componentModel = "spring",
@@ -22,11 +23,11 @@ public interface CourtMapper {
     /**
      * This method converts a court DTO into a court Entity.
      *
-     * @param courtDTO The court DTO.
+     * @param courtOutputDTO The court DTO.
      * @return Return the court Entity.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    Court toEntity(CourtDTO courtDTO);
+    Court toEntity(CourtOutputDTO courtOutputDTO);
 
 
 
@@ -37,7 +38,7 @@ public interface CourtMapper {
      * @return Return the court DTO.
      */
     @Mapping(source = "coordinates", target = "coordinatesId")
-    CourtDTO toDTO(Court courtEntity);
+    CourtOutputDTO toDTO(Court courtEntity);
 
 
 
@@ -45,11 +46,11 @@ public interface CourtMapper {
      * This method update partialy an entity with the DTO.
      *
      * @param courtEntity The entity to updated.
-     * @param courtDTO The DTO.
+     * @param courtOutputDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Court courtEntity, CourtDTO courtDTO);
+    void partialUpdate(@MappingTarget Court courtEntity, CourtOutputDTO courtOutputDTO);
 
 
 
@@ -57,10 +58,10 @@ public interface CourtMapper {
      * This method update fully an entity with the DTO.
      *
      * @param courtEntity The entity to updated.
-     * @param courtDTO The DTO.
+     * @param courtOutputDTO The DTO.
      */
     @Mapping(source = "coordinatesId", target = "coordinates")
-    void fullUpdate(@MappingTarget Court courtEntity, CourtDTO courtDTO);
+    void fullUpdate(@MappingTarget Court courtEntity, CourtOutputDTO courtOutputDTO);
 
 
 

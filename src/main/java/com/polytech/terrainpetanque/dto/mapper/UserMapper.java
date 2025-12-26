@@ -1,8 +1,5 @@
-package org.group_1.terrain_petanque.dto.mapper;
+package com.polytech.terrainpetanque.dto.mapper;
 
-import org.group_1.terrain_petanque.dto.UserDTO;
-import org.group_1.terrain_petanque.dto.UserInputDTO;
-import org.group_1.terrain_petanque.entity.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
@@ -10,8 +7,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.input.UserInputDTO;
+import com.polytech.terrainpetanque.dto.output.UserOutputDTO;
+import com.polytech.terrainpetanque.entity.User;
+
 /**
- * This interface representer a mapper (UserDTO <=> User) and (UserInputDTO => User).
+ * This interface representer a mapper (UserOutputDTO <=> User) and (UserInputDTO => User).
  */
 @Mapper(
     componentModel = "spring",
@@ -22,11 +23,11 @@ public interface UserMapper {
     /**
      * This method converts a user DTO into a user Entity.
      *
-     * @param userDTO The user DTO.
+     * @param userOutputDTO The user DTO.
      * @return Return the user Entity.
      */
     @Mapping(target = "password", ignore = true)
-    User toEntity(UserDTO userDTO);
+    User toEntity(UserOutputDTO userOutputDTO);
 
 
 
@@ -46,7 +47,7 @@ public interface UserMapper {
      * @param userEntity The user Entity.
      * @return Return the user DTO.
      */
-    UserDTO toDTO(User userEntity);
+    UserOutputDTO toDTO(User userEntity);
 
 
 

@@ -1,9 +1,5 @@
-package org.group_1.terrain_petanque.dto.mapper;
+package com.polytech.terrainpetanque.dto.mapper;
 
-import org.group_1.terrain_petanque.dto.ReservationDTO;
-import org.group_1.terrain_petanque.entity.Court;
-import org.group_1.terrain_petanque.entity.Reservation;
-import org.group_1.terrain_petanque.entity.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
@@ -12,8 +8,13 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.output.ReservationOutputDTO;
+import com.polytech.terrainpetanque.entity.Court;
+import com.polytech.terrainpetanque.entity.Reservation;
+import com.polytech.terrainpetanque.entity.User;
+
 /**
- * This interface representer a mapper (ReservationDTO <=> Reservation).
+ * This interface representer a mapper (ReservationOutputDTO <=> Reservation).
  */
 @Mapper(
     componentModel = "spring",
@@ -24,7 +25,7 @@ public interface ReservationMapper {
     /**
      * This method converts a reservation DTO into a reservation Entity.
      *
-     * @param reservationDTO The reservation DTO.
+     * @param reservationOutputDTO The reservation DTO.
      * @return Return the reservation Entity.
      */
     @Mappings(
@@ -33,7 +34,7 @@ public interface ReservationMapper {
             @Mapping(target = "court", ignore = true),
         }
     )
-    Reservation toEntity(ReservationDTO reservationDTO);
+    Reservation toEntity(ReservationOutputDTO reservationOutputDTO);
 
 
 
@@ -49,7 +50,7 @@ public interface ReservationMapper {
             @Mapping(source = "court", target = "courtId"),
         }
     )
-    ReservationDTO toDTO(Reservation reservationEntity);
+    ReservationOutputDTO toDTO(Reservation reservationEntity);
 
 
 
@@ -57,7 +58,7 @@ public interface ReservationMapper {
      * This method update partially an entity with the DTO.
      *
      * @param reservationEntity The entity to updated.
-     * @param reservationDTO The DTO.
+     * @param reservationOutputDTO The DTO.
      */
     @Mappings(
         {
@@ -66,7 +67,7 @@ public interface ReservationMapper {
         }
     )
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
+    void partialUpdate(@MappingTarget Reservation reservationEntity, ReservationOutputDTO resevationDTO);
 
 
 
@@ -74,7 +75,7 @@ public interface ReservationMapper {
      * This method update fully an entity with the DTO.
      *
      * @param reservationEntity The entity to updated.
-     * @param reservationDTO The DTO.
+     * @param reservationOutputDTO The DTO.
      */
     @Mappings(
         {
@@ -82,7 +83,7 @@ public interface ReservationMapper {
             @Mapping(target = "court", ignore = true),
         }
     )
-    void fullUpdate(@MappingTarget Reservation reservationEntity, ReservationDTO resevationDTO);
+    void fullUpdate(@MappingTarget Reservation reservationEntity, ReservationOutputDTO resevationDTO);
 
 
 

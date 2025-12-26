@@ -1,8 +1,5 @@
-package org.group_1.terrain_petanque.dto.mapper;
+package com.polytech.terrainpetanque.dto.mapper;
 
-import org.group_1.terrain_petanque.dto.CoordinatesDTO;
-import org.group_1.terrain_petanque.entity.Coordinates;
-import org.group_1.terrain_petanque.entity.Court;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
@@ -10,8 +7,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
+import com.polytech.terrainpetanque.entity.Coordinates;
+import com.polytech.terrainpetanque.entity.Court;
+
 /**
- * This interface representer a mapper (CoordinatesDTO <=> Coordinates).
+ * This interface representer a mapper (CoordinatesOutputDTO <=> Coordinates).
  */
 @Mapper(
     componentModel = "spring",
@@ -22,11 +23,11 @@ public interface CoordinatesMapper {
     /**
      * This method converts coordinates DTO into coordinates Entity.
      *
-     * @param coordinatesDTO The coordinates DTO.
+     * @param coordinatesOutputDTO The coordinates DTO.
      * @return Return the coordinates Entity.
      */
     @Mapping(source = "courtId", target = "court")
-    Coordinates toEntity(CoordinatesDTO coordinatesDTO);
+    Coordinates toEntity(CoordinatesOutputDTO coordinatesOutputDTO);
 
 
 
@@ -37,7 +38,7 @@ public interface CoordinatesMapper {
      * @return Return the coordinates DTO.
      */
     @Mapping(source = "court", target = "courtId")
-    CoordinatesDTO toDTO(Coordinates coordinatesEntity);
+    CoordinatesOutputDTO toDTO(Coordinates coordinatesEntity);
 
 
 
@@ -45,11 +46,11 @@ public interface CoordinatesMapper {
      * This method update partially an entity with the DTO.
      *
      * @param coordinatesEntity The entity to updated.
-     * @param coordinatesDTO The DTO.
+     * @param coordinatesOutputDTO The DTO.
      */
     @Mapping(source = "courtId", target = "court")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
+    void partialUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesOutputDTO coordinatesOutputDTO);
 
 
 
@@ -57,10 +58,10 @@ public interface CoordinatesMapper {
      * This method update fully an entity with the DTO.
      *
      * @param coordinatesEntity The entity to updated.
-     * @param coordinatesDTO The DTO.
+     * @param coordinatesOutputDTO The DTO.
      */
     @Mapping(source = "courtId", target = "court")
-    void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesDTO coordinatesDTO);
+    void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesOutputDTO coordinatesOutputDTO);
 
 
 
@@ -85,5 +86,5 @@ public interface CoordinatesMapper {
     default Court map(Integer courtId) {
         return Court.obtainCourt(courtId);
     }
-    
+
 }

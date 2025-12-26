@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.dto;
+package com.polytech.terrainpetanque.dto.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CourtDTO {
-    
+public class CourtOutputDTO {
+
     /**
      * This attribute represents the court's id.
      */

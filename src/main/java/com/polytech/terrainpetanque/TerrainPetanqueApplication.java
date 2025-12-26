@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque;
+package com.polytech.terrainpetanque;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

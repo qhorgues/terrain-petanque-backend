@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -59,7 +59,7 @@ public class Reservation {
 
     /**
      * The constructor for developers.
-     * 
+     *
      * @param user The user.
      * @param court The court.
      * @param reservation The reservation.

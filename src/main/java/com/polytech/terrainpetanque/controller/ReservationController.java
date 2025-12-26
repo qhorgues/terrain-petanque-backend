@@ -1,12 +1,22 @@
-package org.group_1.terrain_petanque.controller;
+package com.polytech.terrainpetanque.controller;
 
 import java.util.List;
-import org.group_1.terrain_petanque.dto.ReservationDTO;
-import org.group_1.terrain_petanque.service.ReservationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.polytech.terrainpetanque.dto.output.ReservationOutputDTO;
+import com.polytech.terrainpetanque.service.ReservationService;
 
 /**
  * This class represents the controller for a reservation.
@@ -24,7 +34,7 @@ public class ReservationController {
 
     /**
      * The constructor.
-     * 
+     *
      * @param reservationService The reservation's service.
      */
     @Autowired
@@ -36,11 +46,11 @@ public class ReservationController {
 
     /**
      * This method returns all reservations.
-     * 
+     *
      * @return Return all reservations.
      */
     @GetMapping
-    public ResponseEntity<List<ReservationDTO>> getAllReservation() {
+    public ResponseEntity<List<ReservationOutputDTO>> getAllReservation() {
         return ResponseEntity.ok(reservationService.getAllReservations());
     }
 
@@ -48,13 +58,13 @@ public class ReservationController {
 
     /**
      * This method return a specific reservation.
-     * 
+     *
      * @param userId The user's id.
      * @param courtId The court's id.
      * @return Return the specific reservation.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ReservationDTO> getReservation(
+    public ResponseEntity<ReservationOutputDTO> getReservation(
         @PathVariable int userId,
         @PathVariable int courtId
     ) {
@@ -71,13 +81,13 @@ public class ReservationController {
 
     /**
      * This method creates a reservation.
-     * 
+     *
      * @param reservation The reservation's id.
      * @return Return the created reservation.
      */
     @PostMapping
-    public ResponseEntity<ReservationDTO> createReservation(
-        @RequestBody ReservationDTO reservation
+    public ResponseEntity<ReservationOutputDTO> createReservation(
+        @RequestBody ReservationOutputDTO reservation
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
             reservationService.addReservation(reservation)
@@ -88,17 +98,17 @@ public class ReservationController {
 
     /**
      * This method fully updates a reservation.
-     * 
+     *
      * @param userId The user's id.
      * @param courtId The court's id.
      * @param reservation The reservation's informations.
      * @return Return the updates reservation.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDTO> fullUpdateReservation(
+    public ResponseEntity<ReservationOutputDTO> fullUpdateReservation(
         @PathVariable int userId,
         @PathVariable int courtId,
-        @RequestBody ReservationDTO reservation
+        @RequestBody ReservationOutputDTO reservation
     ) {
         try {
             return ResponseEntity.ok(
@@ -117,17 +127,17 @@ public class ReservationController {
 
     /**
      * This method partially updates a reservation.
-     * 
+     *
      * @param userId The user's id.
      * @param courtId The court's id.
      * @param reservation The reservation's informations.
      * @return Return the updates reservation.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<ReservationDTO> partialUpdateReservation(
+    public ResponseEntity<ReservationOutputDTO> partialUpdateReservation(
         @PathVariable int userId,
         @PathVariable int courtId,
-        @RequestBody ReservationDTO reservation
+        @RequestBody ReservationOutputDTO reservation
     ) {
         try {
             return ResponseEntity.ok(
@@ -146,7 +156,7 @@ public class ReservationController {
 
     /**
      * This method deletes a reservation.
-     * 
+     *
      * @param userId The user's id.
      * @param courtId The court's id.
      * @return Return no content as the deleted reservation.

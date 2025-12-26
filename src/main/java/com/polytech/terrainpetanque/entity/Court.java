@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class Court {
     /**
      * This method generate an entity with a specifi ID.
      * But the object is not in a logical state, so don't use it to handle a database.
-     * 
+     *
      * @param id The entity's id.
      * @return Return the entity.
      */
@@ -96,7 +96,7 @@ public class Court {
 
     /**
      * The constructor for developers.
-     * 
+     *
      * @param name The court's name.
      * @param quantity The court's quantity.
      * @param coordinates The court's coordinates.

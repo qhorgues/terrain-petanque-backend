@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ public class Coordinates {
     /**
      * This method generate an entity with a specifi ID.
      * But the object is not in a logical state, so don't use it to handle a database.
-     * 
+     *
      * @param id The entity's id.
      * @return Return the entity.
      */
@@ -65,7 +65,7 @@ public class Coordinates {
 
 
     /**
-     * This attribute represents a link (One-To-Many) with the 'terrain' table. 
+     * This attribute represents a link (One-To-Many) with the 'terrain' table.
      * And 'terrain' table has the foreing key.
      */
     @OneToOne(mappedBy = "coordinates")
@@ -76,7 +76,7 @@ public class Coordinates {
 
     /**
      * The constructor for developers.
-     * 
+     *
      * @param latitude The coordinates' latitude.
      * @param longitude The coordinates' longitude.
      */

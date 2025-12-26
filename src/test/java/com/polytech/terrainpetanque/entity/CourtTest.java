@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -161,5 +161,5 @@ public class CourtTest {
         // Assertion
         assertEquals(court.getQuantity(), 100);
     }
-    
+
 }

@@ -1,17 +1,20 @@
-package org.group_1.terrain_petanque.service;
+package com.polytech.terrainpetanque.service;
 
-import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.group_1.terrain_petanque.dto.CoordinatesDTO;
-import org.group_1.terrain_petanque.dto.mapper.CoordinatesMapper;
-import org.group_1.terrain_petanque.entity.Coordinates;
-import org.group_1.terrain_petanque.repository.CoordinatesRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+
+import com.polytech.terrainpetanque.dto.mapper.CoordinatesMapper;
+import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
+import com.polytech.terrainpetanque.entity.Coordinates;
+import com.polytech.terrainpetanque.repository.CoordinatesRepository;
+
+import jakarta.transaction.Transactional;
 
 /**
  * This class represent the service to handle coordinates.
@@ -44,11 +47,11 @@ public class CoordinatesService {
     /**
      * This methods add coordinates in the database.
      *
-     * @param coordinatesDTO The coordinates' informations.
+     * @param coordinatesOutputDTO The coordinates' informations.
      */
     @Modifying
-    public CoordinatesDTO addCoordinates(CoordinatesDTO coordinatesDTO) {
-        Coordinates coordinates = coordinatesMapper.toEntity(coordinatesDTO);
+    public CoordinatesOutputDTO addCoordinates(CoordinatesOutputDTO coordinatesOutputDTO) {
+        Coordinates coordinates = coordinatesMapper.toEntity(coordinatesOutputDTO);
         return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }
 
@@ -56,13 +59,13 @@ public class CoordinatesService {
      * This methods update partially coordinates in the database.
      *
      * @param id The coordinates' id.
-     * @param coordinatesDTO The coordinates' informations.
+     * @param coordinatesOutputDTO The coordinates' informations.
      * @throws NotFoundException If the coordinates are not in the database.
      */
     @Modifying
-    public CoordinatesDTO partialUpdateCoordinates(
+    public CoordinatesOutputDTO partialUpdateCoordinates(
         int id,
-        CoordinatesDTO coordinatesDTO
+        CoordinatesOutputDTO coordinatesOutputDTO
     ) throws NotFoundException {
         Optional<Coordinates> coordinatesOptional =
             coordinatesRepository.findById(id);
@@ -73,7 +76,7 @@ public class CoordinatesService {
 
         Coordinates coordinates = coordinatesOptional.get();
 
-        coordinatesMapper.partialUpdate(coordinates, coordinatesDTO);
+        coordinatesMapper.partialUpdate(coordinates, coordinatesOutputDTO);
 
         return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }
@@ -82,13 +85,13 @@ public class CoordinatesService {
      * This methods update fully coordinates in the database.
      *
      * @param id The coordinates' id.
-     * @param coordinatesDTO The coordinates' informations.
+     * @param coordinatesOutputDTO The coordinates' informations.
      * @throws NotFoundException If the coordinates are not in the database.
      */
     @Modifying
-    public CoordinatesDTO fullUpdateCoordinates(
+    public CoordinatesOutputDTO fullUpdateCoordinates(
         int id,
-        CoordinatesDTO coordinatesDTO
+        CoordinatesOutputDTO coordinatesOutputDTO
     ) throws NotFoundException {
         Optional<Coordinates> coordinatesOptional =
             coordinatesRepository.findById(id);
@@ -99,7 +102,7 @@ public class CoordinatesService {
 
         Coordinates coordinates = coordinatesOptional.get();
 
-        coordinatesMapper.fullUpdate(coordinates, coordinatesDTO);
+        coordinatesMapper.fullUpdate(coordinates, coordinatesOutputDTO);
 
         return coordinatesMapper.toDTO(coordinatesRepository.save(coordinates));
     }
@@ -121,7 +124,7 @@ public class CoordinatesService {
      * @return Return the coordinates' informations.
      * @throws NotFoundException If the coordinates are not in the database.
      */
-    public CoordinatesDTO getCoordinates(int id) throws NotFoundException {
+    public CoordinatesOutputDTO getCoordinates(int id) throws NotFoundException {
         Optional<Coordinates> coordinatesOptional =
             coordinatesRepository.findById(id);
 
@@ -139,10 +142,10 @@ public class CoordinatesService {
      *
      * @return Return all the coordinates.
      */
-    public List<CoordinatesDTO> getAllCoordinates() {
+    public List<CoordinatesOutputDTO> getAllCoordinates() {
         List<Coordinates> coordinates = coordinatesRepository.findAll();
 
-        List<CoordinatesDTO> result = new ArrayList<>();
+        List<CoordinatesOutputDTO> result = new ArrayList<>();
 
         for (Coordinates coordinate : coordinates) {
             result.add(coordinatesMapper.toDTO(coordinate));

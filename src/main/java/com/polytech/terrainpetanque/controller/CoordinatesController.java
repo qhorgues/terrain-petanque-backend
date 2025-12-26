@@ -1,12 +1,22 @@
-package org.group_1.terrain_petanque.controller;
+package com.polytech.terrainpetanque.controller;
 
 import java.util.List;
-import org.group_1.terrain_petanque.dto.CoordinatesDTO;
-import org.group_1.terrain_petanque.service.CoordinatesService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
+import com.polytech.terrainpetanque.service.CoordinatesService;
 
 /**
  * This class represents the controller for coordinates.
@@ -24,7 +34,7 @@ public class CoordinatesController {
 
     /**
      * The constructor.
-     * 
+     *
      * @param coordinatesService the coordinates' service.
      */
     @Autowired
@@ -35,11 +45,11 @@ public class CoordinatesController {
 
     /**
      * This method returns the list of coordinates.
-     * 
+     *
      * @return Return the list of coordinates.
      */
     @GetMapping
-    public ResponseEntity<List<CoordinatesDTO>> getAllCoordinates() {
+    public ResponseEntity<List<CoordinatesOutputDTO>> getAllCoordinates() {
         return ResponseEntity.ok(coordinatesService.getAllCoordinates());
     }
 
@@ -51,7 +61,7 @@ public class CoordinatesController {
      * @return Return the specific coordinates.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CoordinatesDTO> getCoordinates(@PathVariable int id) {
+    public ResponseEntity<CoordinatesOutputDTO> getCoordinates(@PathVariable int id) {
         try {
             return ResponseEntity.ok(coordinatesService.getCoordinates(id));
         } catch (Exception exception) {
@@ -67,8 +77,8 @@ public class CoordinatesController {
      * @return Return the created coordinates.
      */
     @PostMapping
-    public ResponseEntity<CoordinatesDTO> createCoordinates(
-        @RequestBody CoordinatesDTO coordinates
+    public ResponseEntity<CoordinatesOutputDTO> createCoordinates(
+        @RequestBody CoordinatesOutputDTO coordinates
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(coordinatesService.addCoordinates(coordinates));
     }
@@ -82,7 +92,7 @@ public class CoordinatesController {
      * @return Return the updated coordinates.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CoordinatesDTO> fullUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesDTO coordinates) {
+    public ResponseEntity<CoordinatesOutputDTO> fullUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesOutputDTO coordinates) {
         try {
             return ResponseEntity.ok(
                 coordinatesService.fullUpdateCoordinates(id, coordinates)
@@ -101,7 +111,7 @@ public class CoordinatesController {
      * @return Return the updated coordinates.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<CoordinatesDTO> partialUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesDTO coordinates) {
+    public ResponseEntity<CoordinatesOutputDTO> partialUpdateCoordinates(@PathVariable int id, @RequestBody CoordinatesOutputDTO coordinates) {
         try {
             return ResponseEntity.ok(
                 coordinatesService.partialUpdateCoordinates(id, coordinates)
@@ -115,7 +125,7 @@ public class CoordinatesController {
 
     /**
      * This method deletes coordinates.
-     * 
+     *
      * @param id The coordinates' id.
      * @return Return no content as the deleted coordinates.
      */

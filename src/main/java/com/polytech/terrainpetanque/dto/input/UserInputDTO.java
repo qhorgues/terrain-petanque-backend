@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.dto;
+package com.polytech.terrainpetanque.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class UserInputDTO {
-   
+
     /**
      * This attribute represents the user's id.
      */

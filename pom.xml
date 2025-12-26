@@ -5,34 +5,45 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.10</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
-	<groupId>org.group_1</groupId>
-	<artifactId>terrain_petanque</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
+	<groupId>com.polytech</groupId>
+	<artifactId>terrainpetanque</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Terrain Petanque</name>
 	<description>Rest API pour un terrain de pétanque</description>
-	<url />
-	<licenses>
-		<license />
-	</licenses>
+
 	<developers>
-		<developer />
+		<developer>
+		    <name>Anthony GIMENEZ</name>
+			<email>anthony.gimenez@etu.univ-tours.fr</email>
+			<organisation>Polytech Tours</organisation>
+		</developer>
+
+		<developer>
+		    <name>Quentin HORGUES</name>
+			<email>quentin.horgues@etu.univ-tours.fr</email>
+			<organisation>Polytech Tours</organisation>
+		</developer>
+
+		<developer>
+		    <name>Alexis GUILLOTIN</name>
+			<email>alexis.guillotin@etu.univ-tours.fr</email>
+			<organisation>Polytech Tours</organisation>
+		</developer>
 	</developers>
-	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
-	</scm>
+
 	<properties>
 		<java.version>21</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,22 +65,26 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		    <dependency>
+
+		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>

@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +29,7 @@ public class User {
     /**
      * This method generate an entity with a specifi ID.
      * But the object is not in a logical state, so don't use it to handle a database.
-     * 
+     *
      * @param id The entity's id.
      * @return Return the entity.
      */
@@ -40,7 +40,7 @@ public class User {
     }
 
 
-    
+
     /**
      * This attribute represents the user's id.
      */
@@ -101,7 +101,7 @@ public class User {
 
     /**
      * The constructor for developers.
-     * 
+     *
      * @param name The user's name.
      * @param surname The user's surname.
      * @param mail The user's mail.
@@ -115,5 +115,5 @@ public class User {
         this.password = password;
         this.username = username;
     }
-    
+
 }

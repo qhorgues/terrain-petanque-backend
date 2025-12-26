@@ -1,4 +1,4 @@
-package org.group_1.terrain_petanque.entity;
+package com.polytech.terrainpetanque.entity;
 
 import java.io.Serializable;
 
@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * This class represents 
+ * This class represents the key for the
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Embeddable
 public class ReservationKey implements Serializable {
-    
+
     /**
      * This attribute represents the reservation's foreign key (link to 'utilisateur' table).
      */
@@ -32,5 +32,5 @@ public class ReservationKey implements Serializable {
      */
     @Column(name = "terrain_id")
     @Setter(AccessLevel.NONE) private Integer courtId;
-    
+
 }
