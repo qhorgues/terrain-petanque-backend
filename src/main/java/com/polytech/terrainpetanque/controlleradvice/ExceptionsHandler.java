@@ -19,8 +19,8 @@ public class ExceptionsHandler {
      * @return Return the error message.
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Exception> handleGenericException(Exception exception) {
-        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handleGenericException(Exception exception) {
+        return new ResponseEntity<>("{\"error\":\"Bad request\", \"code\":400}", HttpStatus.BAD_REQUEST);
     }
 
 
