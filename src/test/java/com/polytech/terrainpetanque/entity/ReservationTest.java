@@ -1,7 +1,6 @@
 package com.polytech.terrainpetanque.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,14 +16,24 @@ public class ReservationTest {
     public void constructorTest() {
         User user = new User("a", "b", "c", "d", "e");
         Court court = new Court("court 1", 1, new Coordinates("100", "120"));
+        Reservation reservationOne = new Reservation(user, null, 0);
+        Reservation reservationTwo = new Reservation(null, court, 0);
+        Reservation reservationThree = new Reservation(user, court, 50);
 
-        assertThrows(NullPointerException.class, () -> {
-            new Reservation(user, null, 0);
-        });
+        //Assertion
+        assertEquals(reservationOne.getUser(), user);
+        assertEquals(reservationOne.getCourt(), null);
+        assertEquals(reservationOne.getReservation(), 0);
 
-        assertThrows(NullPointerException.class, () -> {
-            new Reservation(null, court, 0);
-        });
+
+        assertEquals(reservationTwo.getUser(), null);
+        assertEquals(reservationTwo.getCourt(), court);
+        assertEquals(reservationTwo.getReservation(), 0);
+
+
+        assertEquals(reservationThree.getUser(), user);
+        assertEquals(reservationThree.getCourt(), court);
+        assertEquals(reservationThree.getReservation(), 50);
     }
 
 

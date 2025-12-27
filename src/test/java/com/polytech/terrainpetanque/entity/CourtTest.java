@@ -11,20 +11,6 @@ import org.junit.jupiter.api.Test;
 public class CourtTest {
 
     /**
-     * This method tests the obtainCoordinates method.
-     */
-    @Test
-    public void obtainCourtTest() {
-        // Init & test
-        Court test = Court.obtainCourt(100);
-
-        // Assertion
-        assertEquals(test.getId(), 100);
-    }
-
-
-
-    /**
      * This method tests the constructor.
      */
     @Test

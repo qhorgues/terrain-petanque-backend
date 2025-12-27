@@ -24,21 +24,6 @@ import lombok.Setter;
 public class Coordinates {
 
     /**
-     * This method generate an entity with a specifi ID.
-     * But the object is not in a logical state, so don't use it to handle a database.
-     *
-     * @param id The entity's id.
-     * @return Return the entity.
-     */
-    public static Coordinates obtainCoordinates(int id) {
-        Coordinates result = new Coordinates();
-        result.id = id;
-        return result;
-    }
-
-
-
-    /**
      * This attribute represents the coordinates' id.
      */
     @Id

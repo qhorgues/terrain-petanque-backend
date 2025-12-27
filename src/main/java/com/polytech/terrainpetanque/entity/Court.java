@@ -30,21 +30,6 @@ import lombok.Setter;
 public class Court {
 
     /**
-     * This method generate an entity with a specifi ID.
-     * But the object is not in a logical state, so don't use it to handle a database.
-     *
-     * @param id The entity's id.
-     * @return Return the entity.
-     */
-    public static Court obtainCourt(int id) {
-        Court result = new Court();
-        result.id = id;
-        return result;
-    }
-
-
-
-    /**
      * This attribute represents the court's id.
      */
     @Id
