@@ -79,7 +79,7 @@ public class ReservationController {
     public ResponseEntity<ReservationOutputDTO> getReservation(@PathVariable int userId, @PathVariable int courtId) {
         try {
             return ResponseEntity.ok(reservationService.getReservation(userId, courtId));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -98,7 +98,7 @@ public class ReservationController {
     public ResponseEntity<ReservationOutputDTO> partialUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
         try {
             return ResponseEntity.ok(reservationService.partialUpdateReservation(userId, courtId, reservation));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -117,7 +117,7 @@ public class ReservationController {
     public ResponseEntity<ReservationOutputDTO> fullUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
         try {
             return ResponseEntity.ok(reservationService.fullUpdateReservation(userId, courtId, reservation));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }

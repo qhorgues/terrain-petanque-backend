@@ -2,6 +2,7 @@ package com.polytech.terrainpetanque.controller;
 
 import java.util.List;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,7 +71,7 @@ public class CourtController {
     public ResponseEntity<CourtOutputDTO> getCourt(@PathVariable int id) {
         try {
             return ResponseEntity.ok(courtService.getCourt(id));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -88,7 +89,7 @@ public class CourtController {
     public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
         try {
             return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -106,7 +107,7 @@ public class CourtController {
     public ResponseEntity<CourtOutputDTO> fullUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
         try {
             return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }

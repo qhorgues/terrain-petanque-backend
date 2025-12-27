@@ -2,6 +2,7 @@ package com.polytech.terrainpetanque.controller;
 
 import java.util.List;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,7 +71,7 @@ public class UserController {
     public ResponseEntity<UserOutputDTO> getUser(@PathVariable int id) {
         try {
             return ResponseEntity.ok(userService.getUser(id));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -88,7 +89,7 @@ public class UserController {
     public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
         try {
             return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -106,7 +107,7 @@ public class UserController {
     public ResponseEntity<UserOutputDTO> fullUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
         try {
             return ResponseEntity.ok(userService.fullUpdateUser(id, userInput));
-        } catch (Exception exception) {
+        } catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
     }
