@@ -12,9 +12,13 @@ import org.springframework.stereotype.Service;
 import com.polytech.terrainpetanque.dto.input.ReservationInputDTO;
 import com.polytech.terrainpetanque.dto.mapper.ReservationMapper;
 import com.polytech.terrainpetanque.dto.output.ReservationOutputDTO;
+import com.polytech.terrainpetanque.entity.Court;
 import com.polytech.terrainpetanque.entity.Reservation;
 import com.polytech.terrainpetanque.entity.ReservationKey;
+import com.polytech.terrainpetanque.entity.User;
+import com.polytech.terrainpetanque.repository.CourtRepository;
 import com.polytech.terrainpetanque.repository.ReservationRepository;
+import com.polytech.terrainpetanque.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -33,6 +37,20 @@ public class ReservationService {
 
 
     /**
+     * This attribute represents the repository for the users.
+     */
+    private final UserRepository userRepository;
+
+
+
+    /**
+     * This attribute represents the repository for the courts.
+     */
+    private final CourtRepository courtRepository;
+
+
+
+    /**
      * This attribute represents the mapper for the reservations.
      */
     private final ReservationMapper reservationMapper;
@@ -43,24 +61,47 @@ public class ReservationService {
      * The constructor.
      *
      * @param reservationRepository The repository for the reservations.
+     * @param userRepository The repository for the users.
+     * @param courtRepository The repository for the courts.
      * @param reservationMapper The mapper for the reservations.
      */
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper) {
+    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, CourtRepository courtRepository, ReservationMapper reservationMapper) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+        this.courtRepository = courtRepository;
         this.reservationMapper = reservationMapper;
     }
 
 
 
     /**
-     * This methods add a reservation in the database.
+     * This methods creates a reservation in the database.
      *
+     * @param userId The user's id for the reservation.
+     * @param courtId The court's id for the reservation.
      * @param reservationInputDTO The reservation's informations.
+     * @return Return the reservation created.
+     * @throws NotFoundException If the user or the court doesn't exist.
      */
     @Modifying
-    public ReservationOutputDTO addReservation(ReservationInputDTO reservationInputDTO) {
+    public ReservationOutputDTO addReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+        User user = userOptional.get();
+
+        Optional<Court> courtOptional = courtRepository.findById(courtId);
+        if (courtOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+        Court court = courtOptional.get();
+
         Reservation reservation = reservationMapper.toEntity(reservationInputDTO);
+        reservation.setUser(user);
+        reservation.setCourt(court);
+
         return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
@@ -77,8 +118,7 @@ public class ReservationService {
     @Modifying
     public ReservationOutputDTO partialUpdateReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
         ReservationKey reservationKey = new ReservationKey(userId, courtId);
-        Optional<Reservation> reservationOptional =
-            reservationRepository.findById(reservationKey);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationKey);
 
         if (reservationOptional.isEmpty()) {
             throw new NotFoundException();
@@ -91,6 +131,8 @@ public class ReservationService {
         return reservationMapper.toDTO(reservationRepository.save(reservation));
     }
 
+
+
     /**
      * This methods update fully a reservation in the database.
      *
@@ -102,8 +144,7 @@ public class ReservationService {
     @Modifying
     public ReservationOutputDTO fullUpdateReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
         ReservationKey reservationKey = new ReservationKey(userId, courtId);
-        Optional<Reservation> reservationOptional =
-            reservationRepository.findById(reservationKey);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationKey);
 
         if (reservationOptional.isEmpty()) {
             throw new NotFoundException();
@@ -140,11 +181,9 @@ public class ReservationService {
      * @return Return the reservation's informations.
      * @throws NotFoundException If the reservation are not in the database.
      */
-    public ReservationOutputDTO getReservation(int userId, int courtId)
-        throws NotFoundException {
+    public ReservationOutputDTO getReservation(int userId, int courtId) throws NotFoundException {
         ReservationKey reservationKey = new ReservationKey(userId, courtId);
-        Optional<Reservation> reservationOptional =
-            reservationRepository.findById(reservationKey);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationKey);
 
         if (reservationOptional.isEmpty()) {
             throw new NotFoundException();

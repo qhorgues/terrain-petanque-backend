@@ -3,6 +3,7 @@ package com.polytech.terrainpetanque.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,11 +61,11 @@ public class ReservationController {
     /**
      * This method return a specific reservation.
      *
-     * @param userId The user's id.
-     * @param courtId The court's id.
+     * @param userId The user's id for the reservation.
+     * @param courtId The court's id for the reservation.
      * @return Return the specific reservation.
      */
-    @GetMapping("/{id}")
+    @GetMapping("/user/{userId}/court/{courtId}")
     public ResponseEntity<ReservationOutputDTO> getReservation(@PathVariable int userId, @PathVariable int courtId) {
         try {
             return ResponseEntity.ok(reservationService.getReservation(userId, courtId));
@@ -78,12 +79,19 @@ public class ReservationController {
     /**
      * This method creates a reservation.
      *
-     * @param reservation The reservation's id.
+     * @param userId The user's id for the reservation.
+     * @param courtId The court's id for the reservation.
+     * @param reservation The reservation's informations.
      * @return Return the created reservation.
      */
-    @PostMapping
-    public ResponseEntity<ReservationOutputDTO> createReservation(@RequestBody ReservationInputDTO reservation) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.addReservation(reservation));
+    @PostMapping("/user/{userId}/court/{courtId}")
+    public ResponseEntity<ReservationOutputDTO> createReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.addReservation(userId, courtId, reservation));
+        }
+        catch (NotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -96,7 +104,7 @@ public class ReservationController {
      * @param reservation The reservation's informations.
      * @return Return the updates reservation.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/user/{userId}/court/{courtId}")
     public ResponseEntity<ReservationOutputDTO> fullUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
         try {
             return ResponseEntity.ok(reservationService.fullUpdateReservation(userId, courtId, reservation));
@@ -115,7 +123,7 @@ public class ReservationController {
      * @param reservation The reservation's informations.
      * @return Return the updates reservation.
      */
-    @PatchMapping("/{id}")
+    @PatchMapping("/user/{userId}/court/{courtId}")
     public ResponseEntity<ReservationOutputDTO> partialUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
         try {
             return ResponseEntity.ok(reservationService.partialUpdateReservation(userId, courtId, reservation));
@@ -133,7 +141,7 @@ public class ReservationController {
      * @param courtId The court's id.
      * @return Return no content as the deleted reservation.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/{userId}/court/{courtId}")
     public ResponseEntity<Void> deleteReservation(@PathVariable int userId, @PathVariable int courtId) {
         reservationService.deleteReservation(userId, courtId);
         return ResponseEntity.noContent().build();
