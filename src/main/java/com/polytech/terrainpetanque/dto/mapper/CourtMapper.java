@@ -3,6 +3,7 @@ package com.polytech.terrainpetanque.dto.mapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -46,6 +47,7 @@ public interface CourtMapper {
      * @param courtEntity The entity to updated.
      * @param courtInputDTO The DTO.
      */
+    @Mapping(target = "coordinates", qualifiedByName = "partialUpdate")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void partialUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
 
@@ -57,6 +59,7 @@ public interface CourtMapper {
      * @param courtEntity The entity to updated.
      * @param courtInputDTO The DTO.
      */
+    @Mapping(target = "coordinates", qualifiedByName = "fullUpdate")
     void fullUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
 
 }

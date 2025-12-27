@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ObjectFactory;
 
 import com.polytech.terrainpetanque.dto.input.CoordinatesInputDTO;
 import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
@@ -61,8 +62,19 @@ public interface CoordinatesMapper {
      * @param coordinatesEntity The entity to updated.
      * @param coordinatesInputDTO The DTO.
      */
-     @Named("fullUpdate")
+    @Named("fullUpdate")
     @Mapping(target = "court", ignore = true)
     void fullUpdate(@MappingTarget Coordinates coordinatesEntity, CoordinatesInputDTO coordinatesInputDTO);
+
+
+    /**
+     * This method create a default coordinates.
+     *
+     * @return Return the default coordinates.
+     */
+    @ObjectFactory
+    default Coordinates builder() {
+        return new Coordinates("", "");
+    }
 
 }

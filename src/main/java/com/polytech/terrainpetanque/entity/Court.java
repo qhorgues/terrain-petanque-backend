@@ -3,6 +3,7 @@ package com.polytech.terrainpetanque.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -80,7 +81,7 @@ public class Court {
     /**
      * This attribute represents the court's foreign key (link to 'coordonees' table).
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name= "coordonnees_id", nullable = false)
     @NonNull private Coordinates coordinates;
 
