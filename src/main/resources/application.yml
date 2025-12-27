@@ -7,5 +7,11 @@ spring:
     username: terrain_petanque
     password: password-group1
     driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+      hibernate:
+          ddl-auto: validate
+jwt:
+    secret: xhuijuygfcdxcgbjdfghjpkoihygftyhujiygtfdfghjihfxdfghjkhgfxfchjnkhgcfxdfcvbjnbgcxsdwxfchbhgfscgvbnjahgvfcsgvbanjhfcsxfcahbfcsxdfachbjsgfdrftahbsvcxadftgyhbxd
+    duration: 7200000
 server:
   port: 8081
