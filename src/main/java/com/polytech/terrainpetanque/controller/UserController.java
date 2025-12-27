@@ -18,35 +18,40 @@ import com.polytech.terrainpetanque.dto.input.UserInputDTO;
 import com.polytech.terrainpetanque.dto.output.UserOutputDTO;
 import com.polytech.terrainpetanque.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * This class represents the controller of a user.
+ * This class represents the controller of the users.
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
 
     /**
-     * This attribute represents the service.
+     * This attribute represents the service for the users.
      */
     private final UserService userService;
 
 
 
     /**
-     * The constructors.
+     * This method creates a user.
      *
-     * @param The user's service.
+     * @param userInput The user's informations.
+     * @return Return the created user.
      */
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @PostMapping
+    public ResponseEntity<UserOutputDTO> createUser(@RequestBody UserInputDTO userInput) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userInput));
     }
 
 
 
     /**
-     * This method returns all users.
+     * This method gets all the users.
      *
-     * @return Return all users.
+     * @return Return all the users.
      */
     @GetMapping
     public ResponseEntity<List<UserOutputDTO>> getAllUser() {
@@ -56,10 +61,10 @@ public class UserController {
 
 
     /**
-     * This method returns a specific user.
+     * This method gets a specific user.
      *
      * @param id The user's id.
-     * @return Return the specific user.
+     * @return Return the specific user. Return not found if the user doesn't exist.
      */
     @GetMapping("/{id}")
     public ResponseEntity<UserOutputDTO> getUser(@PathVariable int id) {
@@ -73,16 +78,19 @@ public class UserController {
 
 
     /**
-     * This method creates a user.
+     * This method partially updates a user.
      *
+     * @param id The user's id.
      * @param userInput The user's informations.
-     * @return Return the created user.
+     * @return Return the updated user. Return not found if the user doesn't exist.
      */
-    @PostMapping
-    public ResponseEntity<UserOutputDTO> createUser(
-        @RequestBody UserInputDTO userInput
-    ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userInput));
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
+        try {
+            return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
+        } catch (Exception exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -92,30 +100,12 @@ public class UserController {
      *
      * @param id The user's id.
      * @param userInput The user's informations.
-     * @return Return the updated user.
+     * @return Return the updated user. Return not found if the user doesn't exist.
      */
     @PutMapping("/{id}")
     public ResponseEntity<UserOutputDTO> fullUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
         try {
             return ResponseEntity.ok(userService.fullUpdateUser(id, userInput));
-        } catch (Exception exception) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-
-    /**
-     * This method partially updates a user.
-     *
-     * @param id The user's id.
-     * @param userInput The user's informations.
-     * @return Return the updated user.
-     */
-    @PatchMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
-        try {
-            return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
         } catch (Exception exception) {
             return ResponseEntity.notFound().build();
         }

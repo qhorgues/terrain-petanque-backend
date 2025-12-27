@@ -1,7 +1,8 @@
 package com.polytech.terrainpetanque.dto.output;
 
 /**
- * This class represents a Data Transfer Object (DTO) for coordinates.
+ * This record represents a Data Transfer Object (DTO) for coordinates.
+ * Output entries.
  */
 public record CoordinatesOutputDTO(
     /**

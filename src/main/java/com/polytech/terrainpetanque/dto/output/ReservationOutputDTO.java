@@ -1,7 +1,8 @@
 package com.polytech.terrainpetanque.dto.output;
 
 /**
- * This class represents a Data Transfer Object (DTO) for a reservation.
+ * This record represents a Data Transfer Object (DTO) for a reservation.
+ * Output entries.
  */
 public record ReservationOutputDTO(
     /**

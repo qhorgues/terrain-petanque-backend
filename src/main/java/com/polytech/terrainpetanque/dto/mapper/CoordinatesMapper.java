@@ -14,7 +14,7 @@ import com.polytech.terrainpetanque.dto.output.CoordinatesOutputDTO;
 import com.polytech.terrainpetanque.entity.Coordinates;
 
 /**
- * This interface representer a mapper (CoordinatesOutputDTO <=> Coordinates).
+ * This interface representer a mapper (CoordinatesDTO <=> Coordinates).
  */
 @Mapper(
     componentModel = "spring",

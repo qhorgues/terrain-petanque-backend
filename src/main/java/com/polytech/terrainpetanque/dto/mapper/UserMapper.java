@@ -11,7 +11,7 @@ import com.polytech.terrainpetanque.dto.output.UserOutputDTO;
 import com.polytech.terrainpetanque.entity.User;
 
 /**
- * This interface representer a mapper (UserOutputDTO <=> User) and (UserInputDTO => User).
+ * This interface representer a mapper (UserDTO <=> User).
  */
 @Mapper(
     componentModel = "spring",

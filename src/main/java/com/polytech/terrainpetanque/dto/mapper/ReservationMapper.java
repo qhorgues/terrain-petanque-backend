@@ -14,7 +14,7 @@ import com.polytech.terrainpetanque.entity.Reservation;
 import com.polytech.terrainpetanque.entity.User;
 
 /**
- * This interface representer a mapper (ReservationOutputDTO <=> Reservation).
+ * This interface representer a mapper (ReservationDTO <=> Reservation).
  */
 @Mapper(
     componentModel = "spring",

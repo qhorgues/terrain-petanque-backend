@@ -18,35 +18,40 @@ import com.polytech.terrainpetanque.dto.input.CourtInputDTO;
 import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
 import com.polytech.terrainpetanque.service.CourtService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * This class represents the controller for a court.
+ * This class represents the controller for the courts.
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/courts")
 public class CourtController {
 
     /**
-     * This attribute represents the service.
+     * This attribute represents the service for the courts.
      */
     private final CourtService courtService;
 
 
 
     /**
-     * The constructor.
+     * This method creates a court.
      *
-     * @param coordinatesService the court's service.
+     * @param court The court's informations.
+     * @return Return the created court.
      */
-    public CourtController(CourtService courtService) {
-        this.courtService = courtService;
+    @PostMapping
+    public ResponseEntity<CourtOutputDTO> createCourt(@RequestBody CourtInputDTO court) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(courtService.createCourt(court));
     }
 
 
 
     /**
-     * This method returns all courts.
+     * This method gets all the courts.
      *
-     * @return Return all courts.
+     * @return Return all the courts.
      */
     @GetMapping
     public ResponseEntity<List<CourtOutputDTO>> getAllCourt() {
@@ -56,10 +61,10 @@ public class CourtController {
 
 
     /**
-     * This method returns a specific court.
+     * This method gets a specific court.
      *
      * @param id The court's id.
-     * @return Return the specific court.
+     * @return Return the specific court. Return not found if the court doesn't exist.
      */
     @GetMapping("/{id}")
     public ResponseEntity<CourtOutputDTO> getCourt(@PathVariable int id) {
@@ -73,14 +78,19 @@ public class CourtController {
 
 
     /**
-     * This method creates a court.
+     * This method partially updates a court.
      *
+     * @param id The court's id.
      * @param court The court's informations.
-     * @return Return the created court.
+     * @return Return the updated court. Return not found if the court doesn't exist.
      */
-    @PostMapping
-    public ResponseEntity<CourtOutputDTO> createCourt(@RequestBody CourtInputDTO court) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(courtService.addCourt(court));
+    @PatchMapping("/{id}")
+    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
+        try {
+            return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
+        } catch (Exception exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -90,30 +100,12 @@ public class CourtController {
      *
      * @param id The court's id.
      * @param court The court's informations.
-     * @return Return the updated court.
+     * @return Return the updated court. Return not found if the court doesn't exist.
      */
     @PutMapping("/{id}")
     public ResponseEntity<CourtOutputDTO> fullUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
         try {
             return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
-        } catch (Exception exception) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-
-    /**
-     * This method partially updates a court.
-     *
-     * @param id The court's id.
-     * @param court The court's informations.
-     * @return Return the updated court.
-     */
-    @PatchMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
-        try {
-            return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
         } catch (Exception exception) {
             return ResponseEntity.notFound().build();
         }

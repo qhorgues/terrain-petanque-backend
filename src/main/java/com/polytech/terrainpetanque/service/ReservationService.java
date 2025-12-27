@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,12 @@ import com.polytech.terrainpetanque.repository.ReservationRepository;
 import com.polytech.terrainpetanque.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 /**
- * This class represent the service to handle a reservation.
+ * This class represent the service to handle the reservations.
  */
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class ReservationService {
@@ -58,25 +59,7 @@ public class ReservationService {
 
 
     /**
-     * The constructor.
-     *
-     * @param reservationRepository The repository for the reservations.
-     * @param userRepository The repository for the users.
-     * @param courtRepository The repository for the courts.
-     * @param reservationMapper The mapper for the reservations.
-     */
-    @Autowired
-    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, CourtRepository courtRepository, ReservationMapper reservationMapper) {
-        this.reservationRepository = reservationRepository;
-        this.userRepository = userRepository;
-        this.courtRepository = courtRepository;
-        this.reservationMapper = reservationMapper;
-    }
-
-
-
-    /**
-     * This methods creates a reservation in the database.
+     * This method creates a reservation in the database.
      *
      * @param userId The user's id for the reservation.
      * @param courtId The court's id for the reservation.
@@ -85,7 +68,7 @@ public class ReservationService {
      * @throws NotFoundException If the user or the court doesn't exist.
      */
     @Modifying
-    public ReservationOutputDTO addReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
+    public ReservationOutputDTO createReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
             throw new NotFoundException();
@@ -108,11 +91,54 @@ public class ReservationService {
 
 
     /**
-     * This methods update partially a reservation in the database.
+     * This method get all reservations.
+     *
+     * @return Return all the reservations.
+     */
+    public List<ReservationOutputDTO> getAllReservations() {
+        List<Reservation> reservations = reservationRepository.findAll();
+
+        List<ReservationOutputDTO> result = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            result.add(reservationMapper.toDTO(reservation));
+        }
+
+        return result;
+    }
+
+
+
+    /**
+     * This method get a specific reservation.
+     *
+     * @param userId The user's id in the reservation.
+     * @param courtId The court's id in the reservation.
+     * @return Return the reservation.
+     * @throws NotFoundException If the reservation are not in the database.
+     */
+    public ReservationOutputDTO getReservation(int userId, int courtId) throws NotFoundException {
+        ReservationKey reservationKey = new ReservationKey(userId, courtId);
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationKey);
+
+        if (reservationOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        Reservation reservation = reservationOptional.get();
+
+        return reservationMapper.toDTO(reservation);
+    }
+
+
+
+    /**
+     * This method updates partially a reservation in the database.
      *
      * @param userId The user's id in the reservation.
      * @param courtId The court's id in the reservation.
      * @param reservationInputDTO The reservation's informations.
+     * @return Return the updated reservation.
      * @throws NotFoundException If the reservation are not in the database.
      */
     @Modifying
@@ -134,11 +160,12 @@ public class ReservationService {
 
 
     /**
-     * This methods update fully a reservation in the database.
+     * This method updates fully a reservation in the database.
      *
      * @param userId The user's id in the reservation.
      * @param courtId The court's id in the reservation.
      * @param reservationInputDTO The reservation's informations.
+     * @return Return the updated reservation.
      * @throws NotFoundException If the reservation are not in the database.
      */
     @Modifying
@@ -169,48 +196,6 @@ public class ReservationService {
     public void deleteReservation(int userId, int courtId) {
         ReservationKey reservationKey = new ReservationKey(userId, courtId);
         reservationRepository.deleteById(reservationKey);
-    }
-
-
-
-    /**
-     * This method get a specific reservation.
-     *
-     * @param userId The user's id in the reservation.
-     * @param courtId The court's id in the reservation.
-     * @return Return the reservation's informations.
-     * @throws NotFoundException If the reservation are not in the database.
-     */
-    public ReservationOutputDTO getReservation(int userId, int courtId) throws NotFoundException {
-        ReservationKey reservationKey = new ReservationKey(userId, courtId);
-        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationKey);
-
-        if (reservationOptional.isEmpty()) {
-            throw new NotFoundException();
-        }
-
-        Reservation reservation = reservationOptional.get();
-
-        return reservationMapper.toDTO(reservation);
-    }
-
-
-
-    /**
-     * This method get all reservations.
-     *
-     * @return Return all the reservations.
-     */
-    public List<ReservationOutputDTO> getAllReservations() {
-        List<Reservation> reservations = reservationRepository.findAll();
-
-        List<ReservationOutputDTO> result = new ArrayList<>();
-
-        for (Reservation reservation : reservations) {
-            result.add(reservationMapper.toDTO(reservation));
-        }
-
-        return result;
     }
 
 }

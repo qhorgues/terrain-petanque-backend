@@ -1,7 +1,8 @@
 package com.polytech.terrainpetanque.dto.output;
 
 /**
- * This class represents a Data Transfer Object (DTO) for a user.
+ * This record represents a Data Transfer Object (DTO) for a user.
+ * Output entries.
  */
 public record UserOutputDTO(
     /**

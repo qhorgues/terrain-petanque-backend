@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -16,16 +15,18 @@ import com.polytech.terrainpetanque.entity.User;
 import com.polytech.terrainpetanque.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 /**
- * This class represent the service to handle a user.
+ * This class represent the service to handle the users.
  */
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class UserService {
 
     /**
-     * This attribute represents the repository for the users..
+     * This attribute represents the repository for the users.
      */
     private final UserRepository userRepository;
 
@@ -39,26 +40,13 @@ public class UserService {
 
 
     /**
-     * The constructor.
-     *
-     * @param userRepository The repository for the users.
-     * @param userMapper The mapper for the users.
-     */
-    @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
-
-
-
-    /**
-     * This methods add a user in the database.
+     * This method creates a user in the database.
      *
      * @param userInputDTO The user's informations.
+     * @return The created user.
      */
     @Modifying
-    public UserOutputDTO addUser(UserInputDTO userInputDTO) {
+    public UserOutputDTO createUser(UserInputDTO userInputDTO) {
         User user = userMapper.toEntity(userInputDTO);
         return userMapper.toDTO(userRepository.save(user));
     }
@@ -66,10 +54,51 @@ public class UserService {
 
 
     /**
-     * This methods update partially a user in the database.
+     * This method get all users.
+     *
+     * @return Return all the users.
+     */
+    public List<UserOutputDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        List<UserOutputDTO> result = new ArrayList<>();
+
+        for (User user : users) {
+            result.add(userMapper.toDTO(user));
+        }
+
+        return result;
+    }
+
+
+
+    /**
+     * This method get a specific user.
+     *
+     * @param id The user's id.
+     * @return Return the user.
+     * @throws NotFoundException If the user are not in the database.
+     */
+    public UserOutputDTO getUser(int id) throws NotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        User user = userOptional.get();
+
+        return userMapper.toDTO(user);
+    }
+
+
+
+    /**
+     * This method updates partially a user in the database.
      *
      * @param id The user's id.
      * @param userInputDTO The user's informations.
+     * @return Return the updated user.
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
@@ -91,10 +120,11 @@ public class UserService {
 
 
     /**
-     * This methods update fully a user in the database.
+     * This method updates fully a user in the database.
      *
      * @param id The user's id.
      * @param userInputDTO The user's informations.
+     * @return Return the updated user.
      * @throws NotFoundException If the user are not in the database.
      */
     @Modifying
@@ -123,46 +153,6 @@ public class UserService {
     @Modifying
     public void deleteUser(int id) {
         userRepository.deleteById(id);
-    }
-
-
-
-    /**
-     * This method get a specific user.
-     *
-     * @param id The user's id.
-     * @return Return the user's informations.
-     * @throws NotFoundException If the user are not in the database.
-     */
-    public UserOutputDTO getUser(int id) throws NotFoundException {
-        Optional<User> userOptional = userRepository.findById(id);
-
-        if (userOptional.isEmpty()) {
-            throw new NotFoundException();
-        }
-
-        User user = userOptional.get();
-
-        return userMapper.toDTO(user);
-    }
-
-
-
-    /**
-     * This method get all users.
-     *
-     * @return Return all the users.
-     */
-    public List<UserOutputDTO> getAllUsers() {
-        List<User> users = userRepository.findAll();
-
-        List<UserOutputDTO> result = new ArrayList<>();
-
-        for (User user : users) {
-            result.add(userMapper.toDTO(user));
-        }
-
-        return result;
     }
 
 }

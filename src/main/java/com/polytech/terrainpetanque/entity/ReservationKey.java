@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * This class represents the key for the
+ * This class represents the primary key for the reservation table
  */
 @NoArgsConstructor
 @AllArgsConstructor

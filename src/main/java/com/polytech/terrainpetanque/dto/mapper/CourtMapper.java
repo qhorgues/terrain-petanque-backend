@@ -12,7 +12,7 @@ import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
 import com.polytech.terrainpetanque.entity.Court;
 
 /**
- * This interface representer a mapper (CourtOutputDTO <=> Court).
+ * This interface representer a mapper (CourtDTO <=> Court).
  */
 @Mapper(
     componentModel = "spring",

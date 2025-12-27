@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,12 @@ import com.polytech.terrainpetanque.repository.CoordinatesRepository;
 import com.polytech.terrainpetanque.repository.CourtRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 /**
- * This class represent the service to handle a court.
+ * This class represent the service to handle the courts.
  */
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class CourtService {
@@ -47,28 +48,13 @@ public class CourtService {
 
 
     /**
-     * The constructor.
-     *
-     * @param courtRepository The repository for the courts.
-     * @param coordinatesRepository The repository for the coordinates.
-     * @param courtMapper The mapper for the courts.
-     */
-    @Autowired
-    public CourtService(CourtRepository courtRepository, CoordinatesRepository coordinatesRepository, CourtMapper courtMapper) {
-        this.courtRepository = courtRepository;
-        this.coordinatesRepository = coordinatesRepository;
-        this.courtMapper = courtMapper;
-    }
-
-
-
-    /**
-     * This methods add a court in the database.
+     * This method creates a court in the database.
      *
      * @param courtInputDTO The court's informations.
+     * @return Return the created court.
      */
     @Modifying
-    public CourtOutputDTO addCourt(CourtInputDTO courtInputDTO) {
+    public CourtOutputDTO createCourt(CourtInputDTO courtInputDTO) {
         Court court = courtMapper.toEntity(courtInputDTO);
         coordinatesRepository.save(court.getCoordinates());
         return courtMapper.toDTO(courtRepository.save(court));
@@ -77,10 +63,51 @@ public class CourtService {
 
 
     /**
-     * This methods update partially a court in the database.
+     * This method get all courts.
+     *
+     * @return Return all the courts.
+     */
+    public List<CourtOutputDTO> getAllCourts() {
+        List<Court> courts = courtRepository.findAll();
+
+        List<CourtOutputDTO> result = new ArrayList<>();
+
+        for (Court court : courts) {
+            result.add(courtMapper.toDTO(court));
+        }
+
+        return result;
+    }
+
+
+
+    /**
+     * This method get a specific court.
+     *
+     * @param id The court's id.
+     * @return Return the court.
+     * @throws NotFoundException If the court are not in the database.
+     */
+    public CourtOutputDTO getCourt(int id) throws NotFoundException {
+        Optional<Court> courtOptional = courtRepository.findById(id);
+
+        if (courtOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        Court court = courtOptional.get();
+
+        return courtMapper.toDTO(court);
+    }
+
+
+
+    /**
+     * This method updates partially a court in the database.
      *
      * @param id The court's id.
      * @param courtInputDTO The court's informations.
+     * @return Return The updated court.
      * @throws NotFoundException If the court are not in the database.
      */
     @Modifying
@@ -104,10 +131,11 @@ public class CourtService {
 
 
     /**
-     * This methods update fully a court in the database.
+     * This method updatew fully a court in the database.
      *
      * @param id The court's id.
      * @param courtInputDTO The court's informations.
+     * @return Return the updated court.
      * @throws NotFoundException If the court are not in the database.
      */
     @Modifying
@@ -138,46 +166,6 @@ public class CourtService {
     @Modifying
     public void deleteCourt(int id) {
         courtRepository.deleteById(id);
-    }
-
-
-
-    /**
-     * This method get a specific court.
-     *
-     * @param id The court's id.
-     * @return Return the court's informations.
-     * @throws NotFoundException If the court are not in the database.
-     */
-    public CourtOutputDTO getCourt(int id) throws NotFoundException {
-        Optional<Court> courtOptional = courtRepository.findById(id);
-
-        if (courtOptional.isEmpty()) {
-            throw new NotFoundException();
-        }
-
-        Court court = courtOptional.get();
-
-        return courtMapper.toDTO(court);
-    }
-
-
-
-    /**
-     * This method get all courts.
-     *
-     * @return Return all the courts.
-     */
-    public List<CourtOutputDTO> getAllCourts() {
-        List<Court> courts = courtRepository.findAll();
-
-        List<CourtOutputDTO> result = new ArrayList<>();
-
-        for (Court court : courts) {
-            result.add(courtMapper.toDTO(court));
-        }
-
-        return result;
     }
 
 }
