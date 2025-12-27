@@ -3,13 +3,11 @@ package com.polytech.terrainpetanque.dto.mapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import com.polytech.terrainpetanque.dto.input.CourtInputDTO;
 import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
-import com.polytech.terrainpetanque.entity.Coordinates;
 import com.polytech.terrainpetanque.entity.Court;
 
 /**
@@ -17,7 +15,8 @@ import com.polytech.terrainpetanque.entity.Court;
  */
 @Mapper(
     componentModel = "spring",
-    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED,
+    uses = CoordinatesMapper.class
 )
 public interface CourtMapper {
 
@@ -27,7 +26,6 @@ public interface CourtMapper {
      * @param courtInputDTO The court DTO.
      * @return Return the court Entity.
      */
-    @Mapping(source = "coordinatesId", target = "coordinates")
     Court toEntity(CourtInputDTO courtInputDTO);
 
 
@@ -38,7 +36,6 @@ public interface CourtMapper {
      * @param courtEntity The court Entity.
      * @return Return the court DTO.
      */
-    @Mapping(source = "coordinates", target = "coordinatesId")
     CourtOutputDTO toDTO(Court courtEntity);
 
 
@@ -49,7 +46,6 @@ public interface CourtMapper {
      * @param courtEntity The entity to updated.
      * @param courtInputDTO The DTO.
      */
-    @Mapping(source = "coordinatesId", target = "coordinates")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void partialUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
 
@@ -61,31 +57,6 @@ public interface CourtMapper {
      * @param courtEntity The entity to updated.
      * @param courtInputDTO The DTO.
      */
-    @Mapping(source = "coordinatesId", target = "coordinates")
     void fullUpdate(@MappingTarget Court courtEntity, CourtInputDTO courtInputDTO);
-
-
-
-    /**
-     * This method converts coordinates into an id.
-     *
-     * @param coordinatesEntity The coordinates.
-     * @return Return the coordinates' id.
-     */
-    default Integer map(Coordinates coordinatesEntity) {
-        return coordinatesEntity == null ? null : coordinatesEntity.getId();
-    }
-
-
-
-    /**
-     * This method converts an id into coordinates.
-     *
-     * @param coordinatesId The id.
-     * @return Return the coordinates.
-     */
-    default Coordinates map(Integer coordinatesId) {
-        return Coordinates.obtainCoordinates(coordinatesId);
-    }
 
 }

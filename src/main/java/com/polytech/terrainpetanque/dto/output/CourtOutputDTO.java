@@ -25,7 +25,7 @@ public record CourtOutputDTO(
     String description,
 
     /**
-     * This field is the coordinates' id for a court.
+     * This field is where the court is.
      */
-    int coordinatesId
+    CoordinatesOutputDTO coordinates
 ) {}

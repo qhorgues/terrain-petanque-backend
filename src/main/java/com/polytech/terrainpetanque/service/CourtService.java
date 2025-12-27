@@ -13,6 +13,7 @@ import com.polytech.terrainpetanque.dto.input.CourtInputDTO;
 import com.polytech.terrainpetanque.dto.mapper.CourtMapper;
 import com.polytech.terrainpetanque.dto.output.CourtOutputDTO;
 import com.polytech.terrainpetanque.entity.Court;
+import com.polytech.terrainpetanque.repository.CoordinatesRepository;
 import com.polytech.terrainpetanque.repository.CourtRepository;
 
 import jakarta.transaction.Transactional;
@@ -32,6 +33,13 @@ public class CourtService {
 
 
     /**
+     * This attribute represents the repository for the coordinates.
+     */
+    private final CoordinatesRepository coordinatesRepository;
+
+
+
+    /**
      * This attribute represents the mapper for the courts.
      */
     private final CourtMapper courtMapper;
@@ -42,11 +50,13 @@ public class CourtService {
      * The constructor.
      *
      * @param courtRepository The repository for the courts.
+     * @param coordinatesRepository The repository for the coordinates.
      * @param courtMapper The mapper for the courts.
      */
     @Autowired
-    public CourtService(CourtRepository courtRepository, CourtMapper courtMapper) {
+    public CourtService(CourtRepository courtRepository, CoordinatesRepository coordinatesRepository, CourtMapper courtMapper) {
         this.courtRepository = courtRepository;
+        this.coordinatesRepository = coordinatesRepository;
         this.courtMapper = courtMapper;
     }
 
@@ -60,6 +70,7 @@ public class CourtService {
     @Modifying
     public CourtOutputDTO addCourt(CourtInputDTO courtInputDTO) {
         Court court = courtMapper.toEntity(courtInputDTO);
+        coordinatesRepository.save(court.getCoordinates());
         return courtMapper.toDTO(courtRepository.save(court));
     }
 
@@ -85,6 +96,8 @@ public class CourtService {
 
         courtMapper.partialUpdate(court, courtInputDTO);
 
+        coordinatesRepository.save(court.getCoordinates());
+
         return courtMapper.toDTO(courtRepository.save(court));
     }
 
@@ -109,6 +122,8 @@ public class CourtService {
         Court court = courtOptional.get();
 
         courtMapper.fullUpdate(court, courtInputDTO);
+
+        coordinatesRepository.save(court.getCoordinates());
 
         return courtMapper.toDTO(courtRepository.save(court));
     }

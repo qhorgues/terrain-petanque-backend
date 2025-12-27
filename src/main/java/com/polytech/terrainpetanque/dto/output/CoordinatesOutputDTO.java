@@ -12,15 +12,10 @@ public record CoordinatesOutputDTO(
     /**
      * This field is the coordinates' latitude.
      */
-    String latitude,
+    double latitude,
 
     /**
      * This field is the coordinates' longitude.
      */
-    String longitude,
-
-    /**
-     * This is the court's id for coordinates.
-     */
-    int courtId
+    double longitude
 ) {}

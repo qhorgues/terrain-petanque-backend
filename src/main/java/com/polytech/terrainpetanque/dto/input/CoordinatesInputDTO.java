@@ -8,10 +8,10 @@ public record CoordinatesInputDTO(
     /**
      * This field is the coordinates' latitude.
      */
-    String latitude,
+    double latitude,
 
     /**
      * This field is the coordinates' longitude.
      */
-    String longitude
+    double longitude
 ) {}
