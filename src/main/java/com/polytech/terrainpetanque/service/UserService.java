@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.polytech.terrainpetanque.dto.input.UserInputDTO;
@@ -48,7 +49,40 @@ public class UserService {
     @Modifying
     public UserOutputDTO createUser(UserInputDTO userInputDTO) {
         User user = userMapper.toEntity(userInputDTO);
+
+        Optional<User> userOptional = userRepository.findByMail(userInputDTO.mail());
+        if (userOptional.isPresent()) {
+            throw new RuntimeException();
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(user.getPassword());
+        user.setPassword(hash);
+
         return userMapper.toDTO(userRepository.save(user));
+    }
+
+
+
+    /**
+     * This method checks if the credential for the users are good.
+     *
+     * @param userInputDTO The user's credential.
+     * @return Return the user if credential are correct. Null ortherwise.
+     * @throws NotFoundException If the user doesn't exist.
+     */
+    public UserOutputDTO checkCredential(UserInputDTO userInputDTO) throws NotFoundException {
+        Optional<User> userOptional = userRepository.findByMail(userInputDTO.mail());
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+        User user = userOptional.get();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(userInputDTO.password(), user.getPassword()) == true) {
+            return userMapper.toDTO(user);
+        }
+        return null;
     }
 
 

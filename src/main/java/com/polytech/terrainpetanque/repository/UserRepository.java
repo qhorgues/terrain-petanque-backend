@@ -52,7 +52,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param mail The mail.
      * @return Return a list of users with the specified mail.
      */
-    List<User> findByMail(String mail);
+    Optional<User> findByMail(String mail);
 
 
 

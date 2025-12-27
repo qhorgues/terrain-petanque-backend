@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.polytech.terrainpetanque.JWTGenerator;
 import com.polytech.terrainpetanque.dto.input.UserInputDTO;
 import com.polytech.terrainpetanque.dto.output.UserOutputDTO;
 import com.polytech.terrainpetanque.service.UserService;
@@ -37,6 +38,13 @@ public class UserController {
 
 
     /**
+     * This attribute represents the generator of JSON Web Token.
+     */
+    private final JWTGenerator jwtGenerator;
+
+
+
+    /**
      * This method creates a user.
      *
      * @param userInput The user's informations.
@@ -45,6 +53,29 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserOutputDTO> createUser(@RequestBody UserInputDTO userInput) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userInput));
+    }
+
+
+
+    /**
+     * This method do the login of a user.
+     *
+     * @param userInput The user's credential.
+     * @return Return a ... if the credential are valid. Unauthaurized if not. And not found if the user's doesn't exist.
+     */
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserInputDTO userInput) {
+        try {
+            UserOutputDTO result = userService.checkCredential(userInput);
+            if (result == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            String token = jwtGenerator.generateToken(result);
+            return ResponseEntity.ok(token);
+        }
+        catch (NotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

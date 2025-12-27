@@ -55,7 +55,7 @@ public class User {
     /**
      * This attribute represents the user's mail.
      */
-    @Column(name = "mail", nullable = false, length = 100)
+    @Column(name = "mail", nullable = false, length = 100, unique = true)
     @NonNull private String mail;
 
 
