@@ -148,6 +148,10 @@ public class UserService {
 
         userMapper.partialUpdate(user, userInputDTO);
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(user.getPassword());
+        user.setPassword(hash);
+
         return userMapper.toDTO(userRepository.save(user));
     }
 
@@ -173,6 +177,10 @@ public class UserService {
         User user = userOptional.get();
 
         userMapper.fullUpdate(user, userInputDTO);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(user.getPassword());
+        user.setPassword(hash);
 
         return userMapper.toDTO(userRepository.save(user));
     }
