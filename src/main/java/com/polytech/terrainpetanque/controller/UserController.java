@@ -71,7 +71,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
             String token = jwtGenerator.generateToken(result);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok("{\"token\":\""+ token + "\"}");
         }
         catch (NotFoundException exception) {
             return ResponseEntity.notFound().build();
