@@ -42,16 +42,12 @@ public class ReservationController {
      * @param userId The user's id for the reservation.
      * @param courtId The court's id for the reservation.
      * @param reservation The reservation's informations.
-     * @return Return the created reservation. Return not found if the user or court don't exist.
+     * @return Return the created reservation.
+     * @throws NotFoundException If the user or court don't exist.
      */
     @PostMapping("/user/{userId}/court/{courtId}")
-    public ResponseEntity<ReservationOutputDTO> createReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.createReservation(userId, courtId, reservation));
-        }
-        catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ReservationOutputDTO> createReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) throws NotFoundException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.createReservation(userId, courtId, reservation));
     }
 
 
@@ -73,15 +69,12 @@ public class ReservationController {
      *
      * @param userId The user's id for the reservation.
      * @param courtId The court's id for the reservation.
-     * @return Return the specific reservation. Return not found if the reservation doesn't exist.
+     * @return Return the specific reservation.
+     * @throws NotFoundException If the reservation doesn't exist.
      */
     @GetMapping("/user/{userId}/court/{courtId}")
-    public ResponseEntity<ReservationOutputDTO> getReservation(@PathVariable int userId, @PathVariable int courtId) {
-        try {
-            return ResponseEntity.ok(reservationService.getReservation(userId, courtId));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ReservationOutputDTO> getReservation(@PathVariable int userId, @PathVariable int courtId) throws NotFoundException {
+        return ResponseEntity.ok(reservationService.getReservation(userId, courtId));
     }
 
 
@@ -92,15 +85,12 @@ public class ReservationController {
      * @param userId The user's id.
      * @param courtId The court's id.
      * @param reservation The reservation's informations.
-     * @return Return the updates reservation. Return not found if the reservation doesn't exist.
+     * @return Return the updates reservation.
+     * @throws NotFoundException If the reservation doesn't exist.
      */
     @PatchMapping("/user/{userId}/court/{courtId}")
-    public ResponseEntity<ReservationOutputDTO> partialUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
-        try {
-            return ResponseEntity.ok(reservationService.partialUpdateReservation(userId, courtId, reservation));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ReservationOutputDTO> partialUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) throws NotFoundException {
+        return ResponseEntity.ok(reservationService.partialUpdateReservation(userId, courtId, reservation));
     }
 
 
@@ -111,15 +101,12 @@ public class ReservationController {
      * @param userId The user's id.
      * @param courtId The court's id.
      * @param reservation The reservation's informations.
-     * @return Return the updates reservation. Return not found if the reservation doesn't exist.
+     * @return Return the updates reservation.
+     * @throws NotFoundException If the reservation doesn't exist.
      */
     @PutMapping("/user/{userId}/court/{courtId}")
-    public ResponseEntity<ReservationOutputDTO> fullUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) {
-        try {
+    public ResponseEntity<ReservationOutputDTO> fullUpdateReservation(@PathVariable int userId, @PathVariable int courtId, @RequestBody ReservationInputDTO reservation) throws NotFoundException {
             return ResponseEntity.ok(reservationService.fullUpdateReservation(userId, courtId, reservation));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
 

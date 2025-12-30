@@ -96,15 +96,12 @@ public class UserController {
      * This method gets a specific user.
      *
      * @param id The user's id.
-     * @return Return the specific user. Return not found if the user doesn't exist.
+     * @return Return the specific user.
+     * @throws NotFoundException If the user doesn't exist.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> getUser(@PathVariable int id) {
-        try {
-            return ResponseEntity.ok(userService.getUser(id));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserOutputDTO> getUser(@PathVariable int id) throws NotFoundException {
+        return ResponseEntity.ok(userService.getUser(id));
     }
 
 
@@ -114,15 +111,12 @@ public class UserController {
      *
      * @param id The user's id.
      * @param userInput The user's informations.
-     * @return Return the updated user. Return not found if the user doesn't exist.
+     * @return Return the updated user.
+     * @throws NotFoundException If the user doesn't exist.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
-        try {
-            return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserOutputDTO> partialUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) throws NotFoundException {
+        return ResponseEntity.ok(userService.partialUpdateUser(id, userInput));
     }
 
 
@@ -132,15 +126,12 @@ public class UserController {
      *
      * @param id The user's id.
      * @param userInput The user's informations.
-     * @return Return the updated user. Return not found if the user doesn't exist.
+     * @return Return the updated user.
+     * @throws NotFoundException If the user doesn't exist.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<UserOutputDTO> fullUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) {
-        try {
-            return ResponseEntity.ok(userService.fullUpdateUser(id, userInput));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UserOutputDTO> fullUpdateUser(@PathVariable int id, @RequestBody UserInputDTO userInput) throws NotFoundException {
+        return ResponseEntity.ok(userService.fullUpdateUser(id, userInput));
     }
 
 

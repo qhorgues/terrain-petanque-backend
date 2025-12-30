@@ -65,15 +65,12 @@ public class CourtController {
      * This method gets a specific court.
      *
      * @param id The court's id.
-     * @return Return the specific court. Return not found if the court doesn't exist.
+     * @return Return the specific court.
+     * @throws NotFoundException If the court doesn't exist.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> getCourt(@PathVariable int id) {
-        try {
-            return ResponseEntity.ok(courtService.getCourt(id));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CourtOutputDTO> getCourt(@PathVariable int id) throws NotFoundException {
+        return ResponseEntity.ok(courtService.getCourt(id));
     }
 
 
@@ -83,15 +80,12 @@ public class CourtController {
      *
      * @param id The court's id.
      * @param court The court's informations.
-     * @return Return the updated court. Return not found if the court doesn't exist.
+     * @return Return the updated court.
+     * @throws NotFoundException If the court doesn't exist.
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
-        try {
-            return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CourtOutputDTO> partialUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) throws NotFoundException {
+        return ResponseEntity.ok(courtService.partialUpdateCourt(id, court));
     }
 
 
@@ -101,15 +95,12 @@ public class CourtController {
      *
      * @param id The court's id.
      * @param court The court's informations.
-     * @return Return the updated court. Return not found if the court doesn't exist.
+     * @return Return the updated court.
+     * @throws NotFoundException If the court doesn't exist.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CourtOutputDTO> fullUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) {
-        try {
-            return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
-        } catch (NotFoundException exception) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<CourtOutputDTO> fullUpdateCourt(@PathVariable int id, @RequestBody CourtInputDTO court) throws NotFoundException {
+        return ResponseEntity.ok(courtService.fullUpdateCourt(id, court));
     }
 
 
