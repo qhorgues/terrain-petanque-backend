@@ -13,6 +13,7 @@ import com.polytech.terrainpetanque.dto.input.UserInputDTO;
 import com.polytech.terrainpetanque.dto.mapper.UserMapper;
 import com.polytech.terrainpetanque.dto.output.UserOutputDTO;
 import com.polytech.terrainpetanque.entity.User;
+import com.polytech.terrainpetanque.exception.BadRequestException;
 import com.polytech.terrainpetanque.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -45,6 +46,7 @@ public class UserService {
      *
      * @param userInputDTO The user's informations.
      * @return The created user.
+     * @throws BadRequestException If the user already exists.
      */
     @Modifying
     public UserOutputDTO createUser(UserInputDTO userInputDTO) {
@@ -52,7 +54,7 @@ public class UserService {
 
         Optional<User> userOptional = userRepository.findByMail(userInputDTO.mail());
         if (userOptional.isPresent()) {
-            throw new RuntimeException();
+            throw new BadRequestException();
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
