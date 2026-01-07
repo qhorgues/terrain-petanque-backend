@@ -15,6 +15,7 @@ import com.polytech.terrainpetanque.entity.Court;
 import com.polytech.terrainpetanque.entity.Reservation;
 import com.polytech.terrainpetanque.entity.ReservationKey;
 import com.polytech.terrainpetanque.entity.User;
+import com.polytech.terrainpetanque.exception.BadRequestException;
 import com.polytech.terrainpetanque.repository.CourtRepository;
 import com.polytech.terrainpetanque.repository.ReservationRepository;
 import com.polytech.terrainpetanque.repository.UserRepository;
@@ -59,6 +60,34 @@ public class ReservationService {
 
 
     /**
+     * This method is a trigger when add a reservation.
+     * When we add a reservation, it check if the quantity of the court is acceptable with the number of reservation.
+     * 
+     * @param court The court we want to reserve.
+     * @param quantity The quantity we want to reserve.
+     * @return Return false if there are not triggering (reservation possible), true otherwise (reservation impossible).
+     */
+    private boolean triggerWhenCreate(Court court, int quantity) {
+        if (quantity <= 0) return true;
+
+        List<Reservation> reservations = reservationRepository.findByCourt(court);
+        int reservedCourt = 0;
+        for (Reservation reservation : reservations) {
+            reservedCourt += reservation.getReservation();
+        }
+
+        reservedCourt += quantity;
+
+        if (court.getQuantity() < reservedCourt) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    /**
      * This method creates a reservation in the database.
      *
      * @param userId The user's id for the reservation.
@@ -66,6 +95,7 @@ public class ReservationService {
      * @param reservationInputDTO The reservation's informations.
      * @return Return the reservation created.
      * @throws NotFoundException If the user or the court doesn't exist.
+     * @throws BadRequestException If the court is booked.
      */
     @Modifying
     public ReservationOutputDTO createReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
@@ -80,6 +110,10 @@ public class ReservationService {
             throw new NotFoundException();
         }
         Court court = courtOptional.get();
+
+        if (triggerWhenCreate(court, reservationInputDTO.reservation())) {
+            throw new BadRequestException();
+        }
 
         Reservation reservation = reservationMapper.toEntity(reservationInputDTO);
         reservation.setUser(user);
@@ -133,6 +167,36 @@ public class ReservationService {
 
 
     /**
+     * This method is a trigger when update a reservation.
+     * When we add a reservation, it check if the quantity of the court is acceptable with the number of reservation.
+     * 
+     * @param reservation The reservation to update.
+     * @param quantity The quantity we want to reserve.
+     * @return Return false if there are not triggering (reservation possible), true otherwise (reservation impossible).
+     */
+    private boolean triggerWhenUpdate(Reservation reservation, int quantity) {
+        if (quantity <= 0) return true;
+        
+        Court court = reservation.getCourt();
+        List<Reservation> reservations = reservationRepository.findByCourt(court);
+        int reservedCourt = 0;
+        for (Reservation reservationLoop : reservations) {
+            reservedCourt += reservationLoop.getReservation();
+        }
+
+        reservedCourt -= reservation.getReservation();
+        reservedCourt += quantity;
+
+        if (court.getQuantity() < reservedCourt) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    /**
      * This method updates partially a reservation in the database.
      *
      * @param userId The user's id in the reservation.
@@ -140,6 +204,7 @@ public class ReservationService {
      * @param reservationInputDTO The reservation's informations.
      * @return Return the updated reservation.
      * @throws NotFoundException If the reservation are not in the database.
+     * @throws BadRequestException If the court is booked.
      */
     @Modifying
     public ReservationOutputDTO partialUpdateReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
@@ -151,6 +216,10 @@ public class ReservationService {
         }
 
         Reservation reservation = reservationOptional.get();
+
+        if (triggerWhenUpdate(reservation, reservationInputDTO.reservation())) {
+            throw new BadRequestException();
+        }
 
         reservationMapper.partialUpdate(reservation, reservationInputDTO);
 
@@ -167,6 +236,7 @@ public class ReservationService {
      * @param reservationInputDTO The reservation's informations.
      * @return Return the updated reservation.
      * @throws NotFoundException If the reservation are not in the database.
+     * @throws BadRequestException If the court is booked.
      */
     @Modifying
     public ReservationOutputDTO fullUpdateReservation(int userId, int courtId, ReservationInputDTO reservationInputDTO) throws NotFoundException {
@@ -178,6 +248,10 @@ public class ReservationService {
         }
 
         Reservation reservation = reservationOptional.get();
+
+        if (triggerWhenUpdate(reservation, reservationInputDTO.reservation())) {
+            throw new BadRequestException();
+        }
 
         reservationMapper.fullUpdate(reservation, reservationInputDTO);
 
