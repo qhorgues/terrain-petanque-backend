@@ -1,11 +1,49 @@
-### Java Spring template project
+Le backend utilise mariadb.
 
-This project is based on a GitLab [Project Template](https://docs.gitlab.com/ee/gitlab-basics/create-project.html).
+Pour lancer le backend, va falloir crée un utilisateur :
 
-Improvements can be proposed in the [original project](https://gitlab.com/gitlab-org/project-templates/spring).
+```SQL
+CREATE USER 'terrain_petanque'@'localhost' IDENTIFIED BY 'password-group1';
+CREATE DATABASE terrain_petanque;
+GRANT INSERT, SELECT, UPDATE, DELETE ON terrain_petanque.* TO 'terrain_petanque'@'localhost';
+FLUSH PRIVILEGES;
+```
 
-### CI/CD with Auto DevOps
+Pour les endpoints :
 
-This template is compatible with [Auto DevOps](https://docs.gitlab.com/ee/topics/autodevops/).
+Utilisateur : `http://localhost:8081/api/v1/users`
+Terrain : `http://localhost:8081/api/v1/courts`
+Reservation : `http/localhost:8081/api/v1/reservations`
 
-If Auto DevOps is not already enabled for this project, you can [turn it on](https://docs.gitlab.com/ee/topics/autodevops/#enabling-auto-devops) in the project settings.
+Les DTO d'entrées :
+
+Utilisateur :
+```JSON
+{
+  "name": "Nom",
+  "surname": "Prénom",
+  "mail": "nom.prenom@test.com", 
+  "password": "test", "username": 
+  "Prénom Nom" 
+}
+```
+
+Terrain : 
+```JSON
+{
+  "name": "Nom",
+  "description": "Je suis un terrain",
+  "quantity": 5,
+  "coordinates": {
+    "latitude": 50.0,
+    "longitude": 10.0
+  }
+}
+```
+
+Reservations :
+```JSON
+{
+  "reservation": 3
+}
+```
