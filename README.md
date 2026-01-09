@@ -8,6 +8,7 @@ CREATE DATABASE terrain_petanque;
 GRANT INSERT, SELECT, UPDATE, DELETE ON terrain_petanque.* TO 'terrain_petanque'@'localhost';
 FLUSH PRIVILEGES;
 ```
+**Ne pas oublié de remplir la base de donnée avec les fichiers `terrain_structure.sql` et `terrain_jdd.sql`**
 
 Pour les endpoints :
 
